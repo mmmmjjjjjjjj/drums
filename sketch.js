@@ -11,7 +11,6 @@ function setup() {
     
 }
 function draw() {
-    CENTER
     let volume = map(mouseX, 0, width, 0, 1);
     
     volume = constrain(volume, 0, 1);
