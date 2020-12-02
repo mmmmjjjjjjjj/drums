@@ -6,7 +6,7 @@ function preload(){
     audio.playMode('sustain');
 }
 function setup() {
-    createCanvas(displayWidth, displayHeight, WEBGL);
+    createCanvas(displayWidth, displayHeight);
     background(random(1,255));
     
 }
