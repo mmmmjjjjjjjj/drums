@@ -25,7 +25,7 @@ function draw() {
     if (mouseIsPressed) {    
         stroke(random(1,255), random(1, 255), random(1, 255));
         fill(255, random(1, 255), random(1, 255));
-        ellipse(mouseX*mouseX, mouseY*mouseY, random(1,100), random(1, 100));
+        ellipse(mouseX, mouseY, random(1,100), random(1, 100));
         audio.play()
       } else {
         stroke(255);
