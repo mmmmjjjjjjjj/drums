@@ -7,7 +7,7 @@ function preload(){
 }
 function setup() {
     createCanvas(displayWidth, displayHeight);
-    background(random(1,255));
+    background(random(50,205));
     
 }
 function draw() {
