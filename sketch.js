@@ -4,12 +4,26 @@ function preload(){
     soundFormats('mp3');
     audio = loadSound("assets/SITE.mp3");
     audio.playMode('sustain');
-}
+  }
+function resetSketch() {
+    background(random(50,180), random(50, 180), 255);
+    stroke(255);
+    fill(0);
+    audio.stop();
+  }
 function setup() {
-    createCanvas(displayWidth, displayHeight);
-    background(random(50,205));
+    createCanvas(displayWidth - 10, displayHeight - 10);
+    resetSketch(); 
+    background(random(0,150));
+    let col = color(255, 255, 255);
+    let button = createButton("RESET SKETCH");
+    button.style('background-color', col);
+    button.style("font-family","Futura");
+    button.position(40, 65);
+    button.mousePressed(resetSketch)
     
 }
+
 function draw() {
     let volume = map(mouseX, 0, width, 0, 1);
     
@@ -26,12 +40,11 @@ function draw() {
         stroke(random(1,255), random(1, 255), random(1, 255));
         fill(255, random(1, 255), random(1, 255));
         ellipse(mouseX, mouseY, random(1,100), random(1, 100));
-        audio.play()
+        audio.play();
       } else {
         stroke(255);
         fill(0);
-        audio.stop()
+        audio.stop();
       }
-    
     }
-    
+
