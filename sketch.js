@@ -12,7 +12,7 @@ function resetSketch() {
     audio.stop();
   }
 function setup() {
-    createCanvas(displayWidth - 100, displayHeight - 100);
+    createCanvas(displayWidth - 1, displayHeight - 100);
     resetSketch(); 
     background(random(0,150));
     let col = color(255, 255, 255);
