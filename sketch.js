@@ -12,14 +12,14 @@ function resetSketch() {
     audio.stop();
   }
 function setup() {
-    createCanvas(displayWidth - 1, displayHeight - 100);
+    createCanvas(displayWidth, displayHeight - 10);
     resetSketch(); 
     background(random(0,150));
     let col = color(255, 255, 255);
     let button = createButton("RESET SKETCH");
     button.style('background-color', col);
     button.style("font-family","Futura");
-    button.position(40, displayHeight - 160);
+    button.position(displayWidth - 235, displayHeight/14);
     button.mousePressed(resetSketch)
     
 }
