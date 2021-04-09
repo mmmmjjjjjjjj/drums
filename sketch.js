@@ -19,7 +19,7 @@ function setup() {
     let button = createButton("RESET SKETCH");
     button.style('background-color', col);
     button.style("font-family","Futura");
-    button.position(displayWidth - 235, displayHeight/14);
+    button.position(displayWidth - 235, displayHeight/25);
     button.mousePressed(resetSketch)
     
 }
