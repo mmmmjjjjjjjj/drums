@@ -14,7 +14,7 @@ function resetSketch() {
 function setup() {
     createCanvas(displayWidth, displayHeight);
     resetSketch(); 
-    background(random(0,150));
+    background(random(50,180), random(50, 180), 255);
     let col = color(255, 255, 255);
     let button = createButton("RESET SKETCH");
     button.style('background-color', col);
