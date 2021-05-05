@@ -12,27 +12,27 @@ function resetSketch() {
     audio.stop();
   }
 function setup() {
-    createCanvas(displayWidth, displayHeight);
+    createCanvas(windowWidth, displayHeight);
     resetSketch(); 
     background(random(50,180), random(50, 180), 255);
     let col = color(255, 255, 255);
     let button = createButton("RESET SKETCH");
     button.style('background-color', col);
     button.style("font-family","Futura");
-    button.position(displayWidth - 235, 5);
+    button.position(window.innerWidth - 235, 5);
     button.mousePressed(resetSketch)
     
 }
 
 function draw() {
-    let volume = map(mouseX, 0, width, 0, 1);
+    let volume = map(mouseX, 0, window.innerWidth, 0, 1);
     
     volume = constrain(volume, 0, 1);
     audio.amp(volume);
 
   // Set the rate to a range between 0.1 and 4
   // Changing the rate alters the pitch
-    let speed = map(mouseY, 0.1, height, 0, 2);
+    let speed = map(mouseY, 0.1, window.innerHeight, 0, 2);
     speed = constrain(speed, 0.01, 4);
     audio.rate(speed);
     
@@ -47,4 +47,7 @@ function draw() {
         audio.stop();
       }
     }
+function windowResized(){
+  resizeCanvas(windowWidth, windowHeight);
 
+}
