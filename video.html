@@ -6,6 +6,15 @@
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
   <title>Max Jaffe</title>
   <style>
+      div.scroll { 
+        background-color: initial;
+        width: displayWidth;
+        height: 300px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align: center;
+        padding: 20px;
+    }
     * {
       box-sizing: border-box;
     }
@@ -45,7 +54,7 @@
       left: 0;
     }
 
-    div.right { text-align: right;}
+    
   </style>
   <script src="../p5.js"></script>
   <script src="../p5.sound.min.js"></script>
@@ -65,6 +74,7 @@
   <br>
   <h2>SELECTED VIDEOGRAPHY</h2>
   </p>
+  <div class="scroll">
   <p>
   <iframe width="400" height="225" src="https://www.youtube.com/embed/3alcrTlwQ5M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   <iframe width="400" height="225" src="https://www.youtube.com/embed/Dp3DZd23eRA?list=PLO8vBX72WhlRpRhFaMrEoOc2HC37RN2ns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -82,7 +92,7 @@
 
 
 </p>
-
+</div>
 </blockquote>
 </body>
 
