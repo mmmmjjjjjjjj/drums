@@ -1,9 +1,13 @@
 let audio
-
+let img = [];
 function preload(){
     soundFormats('mp3');
     audio = loadSound("assets/432.mp3");
     audio.playMode('sustain');
+    for (let i = 0; i <4; i++) {
+    img[i] = loadImage("assets/img/" + i + ".png")
+    }
+    
   }
 function resetSketch() {
     background(random(50,180), random(50, 180), 255);
@@ -39,7 +43,8 @@ function draw() {
     if (mouseIsPressed) {    
         stroke(random(1,255), random(1, 255), random(1, 255));
         fill(255, random(1, 255), random(1, 255));
-        ellipse(mouseX, mouseY, random(1,100), random(1, 100));
+        //ellipse(mouseX, mouseY, random(1,100), random(1, 100));
+        image(img[i], mouseX, mouseY, random(1, 100), random(1, 100));
         audio.play();
       } else {
         stroke(255);
