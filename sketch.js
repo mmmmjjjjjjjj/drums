@@ -1,4 +1,5 @@
-let audio
+let audio;
+let imageChoice;
 let img = [];
 function preload(){
     soundFormats('mp3');
@@ -25,7 +26,7 @@ function setup() {
     button.style("font-family","Helvetica");
     button.position(window.innerWidth - 235, 5);
     button.mousePressed(resetSketch)
-    
+
 }
 
 function draw() {
@@ -39,12 +40,14 @@ function draw() {
     let speed = map(mouseY, 0.1, window.innerHeight, 0, 2);
     speed = constrain(speed, 0.01, 4);
     audio.rate(speed);
-    
+    // let img;
+    // let i = [];
     if (mouseIsPressed) {    
+        image(i[imageChoice], mouseX, mouseY, 100, 100);
         stroke(random(1,255), random(1, 255), random(1, 255));
         fill(255, random(1, 255), random(1, 255));
-        //ellipse(mouseX, mouseY, random(1,100), random(1, 100));
-        image(img[i], mouseX, mouseY, random(1, 100), random(1, 100));
+        ellipse(mouseX, mouseY, random(1,100), random(1, 100));
+        
         audio.play();
       } else {
         stroke(255);
