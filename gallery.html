@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <title>Max Jaffe</title>
+    
     <style>
         div.scroll {
             background-color: initial;
             width: displayWidth;
-            height: 20em;
+            height: displayHeight;
             overflow-x: hidden;
             overflow-y: auto;
             text-align: left;
@@ -129,10 +130,10 @@
             text-align: right;
         }
     </style>
-    <script src="../p5.js"></script>
-  
 
 </head>
+
+
 <blockquote>
 <body>
 
@@ -146,6 +147,7 @@
             <br>
         <h2>Gallery</h2>
         </p>
+        <div class="scroll">
         <div class="container">
             <div class="mySlides">
                 <div class="numbertext">1 / 6</div>
@@ -210,8 +212,8 @@
                         alt="Photo Credit: Petra Cvelbar">
                 </div>
             </div>
-        </div>
-
+        </div> 
+    </div>
         <script>
             let slideIndex = 1;
             showSlides(slideIndex);
@@ -242,6 +244,7 @@
                 captionText.innerHTML = dots[slideIndex - 1].alt;
             }
         </script>
+
 </blockquote>
 </body>
 
