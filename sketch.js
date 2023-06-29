@@ -2,7 +2,7 @@ let audio
 
 function preload(){
     soundFormats('mp3');
-    audio = loadSound("assets/432.mp3");
+    audio = loadSound("assets/SD0050.WAV");
     audio.playMode('sustain');
   }
 function resetSketch() {
