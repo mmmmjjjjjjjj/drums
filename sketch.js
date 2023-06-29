@@ -2,7 +2,7 @@ let audio
 
 function preload(){
     soundFormats('mp3');
-    audio = loadSound("assets/SD0050.WAV");
+    audio = loadSound("assets/SD.mp3");
     audio.playMode('sustain');
   }
 function resetSketch() {
@@ -22,7 +22,6 @@ function setup() {
     button.style("font-family","Helvetica");
     button.position(window.innerWidth - 235, 5);
     button.mousePressed(resetSketch)
-    
 }
 
 function draw() {
