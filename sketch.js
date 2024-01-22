@@ -121,7 +121,21 @@ class Element {
   }
 }
 
-function mousePressed() {
-  // Create a new element at the mouse position when mouse is pressed
+function userPressed() {
+  // Create a new element at the interaction position
   elements.push(new Element(mouseX, mouseY));
 }
+
+function touchStarted() {
+  // Call the common function for both touch and mouse interactions
+  userPressed();
+
+  // Prevent default to avoid issues with some mobile browsers
+  return false;
+}
+
+function mousePressed() {
+  // Call the common function for both touch and mouse interactions
+  userPressed();
+}
+
