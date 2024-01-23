@@ -1,5 +1,6 @@
 let gongSound;
 let filter, reverb;
+let links;
 
 let elements = []; // Array to store Element objects
 const maxSpeed = 3;
@@ -38,6 +39,9 @@ function setup() {
   button.style("font-family", "Helvetica");
   button.position(window.innerWidth - 235, 5);
   button.mousePressed(resetSketch);
+
+  // Create an array of DOM elements for all links in the document
+  links = document.getElementsByTagName('a')
 }
 
 function draw() {
@@ -122,8 +126,11 @@ class Element {
 }
 
 function userPressed() {
-  // Create a new element at the interaction position
-  elements.push(new Element(mouseX, mouseY));
+  // Check if the click is not on a link
+  if (!mouseOnLink()) {
+    // Create a new element at the interaction position
+    elements.push(new Element(mouseX, mouseY));
+  }
 }
 
 function touchStarted() {
@@ -139,3 +146,21 @@ function mousePressed() {
   userPressed();
 }
 
+// Function to check if the mouse is on a link
+function mouseOnLink() {
+  let mx = mouseX;
+  let my = mouseY;
+
+  // Check if the mouse is over any of the links
+  for (let i = 0; i < links.length; i++) {
+    let linkX = links[i].offsetLeft;
+    let linkY = links[i].offsetTop;
+    let linkW = links[i].offsetWidth;
+    let linkH = links[i].offsetHeight;
+
+    if (mx > linkX && mx < linkX + linkW && my > linkY && my < linkY + linkH) {
+      return true; // Mouse is over a link
+    }
+  }
+  return false; // Mouse is not over any link
+}
