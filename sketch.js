@@ -142,9 +142,13 @@ function touchStarted() {
 }
 
 function mousePressed() {
-  // Call the common function for both touch and mouse interactions
-  userPressed();
+  // Check if the touch is within the designated area for elements
+  if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+    // Create a new element at the mouse position when mouse is pressed
+    elements.push(new Element(mouseX, mouseY));
+  }
 }
+
 
 // Function to check if the mouse is on a link
 function mouseOnLink() {
