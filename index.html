@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Max Jaffe</title>
   <style>
-    div.scroll { 
+    div.scroll {
       background-color: initial;
       width: windowWidth;
       height: 35em;
@@ -14,10 +14,12 @@
       overflow-y: auto;
       text-align: left;
       padding: 0;
-  }
+    }
+
     * {
       box-sizing: border-box;
     }
+
     body {
       padding: 0;
       margin: 0;
@@ -30,42 +32,48 @@
       z-index: 3;
       position: relative;
     }
+
     h2 {
       font-family: 'Menlo', sans-serif;
       font-size: 2em;
       z-index: 3;
       position: relative;
     }
+
     p {
       font-family: 'Menlo', sans-serif;
       font-size: 1em;
       z-index: 3;
       position: relative;
-    } 
-    a:visited{
+    }
+
+    a:visited {
       color: lavender;
     }
+
     a:link {
       color: lavender;
     }
+
     canvas {
       position: absolute;
       top: 0;
       left: 0;
     }
 
-    div.right { text-align: right;}
+    div.right {
+      text-align: right;
+    }
   </style>
   <script src="../p5.js"></script>
   <script src="../p5.sound.min.js"></script>
   <script src="sketch.js"></script>
-
 </head>
 <blockquote>
 <body>
   <h1>Max Jaffe</h1>
   <p>
-    <a href="index.html">ABOUT</a> 
+    <a href="index.html">ABOUT</a>
     <a href="music.html">MUSIC</a>
     <a href="video.html">VIDEOS</a>
     <a href="gallery.html">GALLERY</a>
@@ -73,8 +81,8 @@
     <br>
     <h2>ABOUT</h2>
   </p>
-<div class="scroll">
-<p>
+  <div class="scroll">
+    <p>
   <br>Max Jaffe expands the boundaries of possibility for composition 
   and collaboration through the drum set. His music draws from many different 
   genres and seeks to break down the boundaries between them. He is part of a cutting edge
@@ -103,21 +111,12 @@
   <br>
   <a href="https://splice.com/sounds/rubicon/sensory-percussion-moods" target="blank">SPLICE PACK</a> | <a href="press.html">PRESS</a>
   <br>
+  <br>
 
 
 </p>
 </div>
-<script>
-  // Call the p5.js sketch after the document has fully loaded
-  document.addEventListener("DOMContentLoaded", function () {
-    let canvas = createCanvas(windowWidth, windowHeight);
-    canvas.position(0, 0);
-    canvas.style('z-index', '-1');
-    setup();
-    draw();
-  });
-</script>
-</blockquote>
-</body>
 
+</body>
+</blockquote>
 </html>

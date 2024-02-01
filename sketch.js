@@ -1,6 +1,5 @@
 let gongSound;
 let filter, reverb;
-
 let elements = []; // Array to store Element objects
 const maxSpeed = 3;
 const minElementSize = 10;
@@ -10,12 +9,14 @@ function preload() {
   // Load the gong sound effect
   gongSound = loadSound("assets/GONG.mp3");
 }
+
 function resetSketch() {
   background(random(50, 180), random(50, 180), 255);
   stroke(255);
   fill(0);
   elements = []; // Reset the array of elements
 }
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   resetSketch();
@@ -34,8 +35,13 @@ function setup() {
   let button = createButton("RESET SKETCH");
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
-  button.position(windowWidth - 235, 5);
-  button.mousePressed(resetSketch);
+  button.position(window.innerWidth - 235, 5);
+  button.mousePressed(resetSketch)
+
+  // Create the Element objects
+  for (let i = 0; i < 5; i++) {
+    elements.push(new Element(random(width), random(height)));
+  }
 }
 
 function draw() {
@@ -45,6 +51,7 @@ function draw() {
     elements[i].drawElement();
   }
 }
+
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   resetSketch();
@@ -54,7 +61,7 @@ function windowResized() {
   let button = createButton("RESET SKETCH");
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
-  button.position(windowWidth - 235, 5);
+  button.position(window.innerWidth - 235, 5);
   button.mousePressed(resetSketch);
 }
 // Element class
@@ -116,7 +123,6 @@ class Element {
     reverb.process(gongSound, reverbTime, reverbDecay);
   }
 }
-
 
 function touchStarted() {
   // Check if the touch interaction is on a link
