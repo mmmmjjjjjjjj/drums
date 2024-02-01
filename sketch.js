@@ -1,6 +1,5 @@
 let gongSound;
 let filter, reverb;
-let links;
 
 let elements = []; // Array to store Element objects
 const maxSpeed = 3;
@@ -11,16 +10,14 @@ function preload() {
   // Load the gong sound effect
   gongSound = loadSound("assets/GONG.mp3");
 }
-
 function resetSketch() {
   background(random(50, 180), random(50, 180), 255);
   stroke(255);
   fill(0);
   elements = []; // Reset the array of elements
 }
-
 function setup() {
-  createCanvas(window.innerWidth, window.innerHeight);
+  createCanvas(windowWidth, windowHeight);
   resetSketch();
 
   // Setup the filter
@@ -37,11 +34,8 @@ function setup() {
   let button = createButton("RESET SKETCH");
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
-  button.position(window.innerWidth - 235, 5);
+  button.position(windowWidth - 235, 5);
   button.mousePressed(resetSketch);
-
-  // Create an array of DOM elements for all links in the document
-  links = document.getElementsByTagName('a')
 }
 
 function draw() {
@@ -51,7 +45,6 @@ function draw() {
     elements[i].drawElement();
   }
 }
-
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   resetSketch();
@@ -61,10 +54,9 @@ function windowResized() {
   let button = createButton("RESET SKETCH");
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
-  button.position(window.innerWidth - 235, 5);
+  button.position(windowWidth - 235, 5);
   button.mousePressed(resetSketch);
 }
-
 // Element class
 class Element {
   constructor(x, y) {
@@ -125,46 +117,30 @@ class Element {
   }
 }
 
-function userPressed() {
-  // Check if the click is not on a link
-  if (!mouseOnLink()) {
-    // Create a new element at the interaction position
-    elements.push(new Element(mouseX, mouseY));
-  }
-}
 
 function touchStarted() {
-  // Call the common function for both touch and mouse interactions
-  userPressed();
-
-  // Prevent default to avoid issues with some mobile browsers
+  // Check if the touch interaction is on a link
+  if (!mouseOnLink()) {
+    // Create a new element at the touch position
+    elements.push(new Element(mouseX, mouseY));
+  }
+  // Prevent the default behavior to avoid interference with links and scrolling
   return false;
 }
 
-function mousePressed() {
-  // Check if the touch is within the designated area for elements
-  if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-    // Create a new element at the mouse position when mouse is pressed
-    elements.push(new Element(mouseX, mouseY));
-  }
-}
-
-
-// Function to check if the mouse is on a link
 function mouseOnLink() {
-  let mx = mouseX;
-  let my = mouseY;
-
-  // Check if the mouse is over any of the links
+  // Check if the mouse is on any link
+  let links = document.getElementsByTagName("a");
   for (let i = 0; i < links.length; i++) {
-    let linkX = links[i].offsetLeft;
-    let linkY = links[i].offsetTop;
-    let linkW = links[i].offsetWidth;
-    let linkH = links[i].offsetHeight;
-
-    if (mx > linkX && mx < linkX + linkW && my > linkY && my < linkY + linkH) {
-      return true; // Mouse is over a link
+    let linkPos = links[i].getBoundingClientRect();
+    if (
+      mouseX >= linkPos.left &&
+      mouseX <= linkPos.right &&
+      mouseY >= linkPos.top &&
+      mouseY <= linkPos.bottom
+    ) {
+      return true;
     }
   }
-  return false; // Mouse is not over any link
+  return false;
 }
