@@ -4,6 +4,7 @@ let elements = [];
 const maxSpeed = 3;
 const minElementSize = 10;
 const maxElementSize = 50;
+let touchInteraction = false;
 
 function preload() {
   // Load the gong sound effect
@@ -15,6 +16,7 @@ function resetSketch() {
   stroke(255);
   fill(0);
   elements = []; // Reset the array of elements
+  touchInteraction = false; // Reset touch interaction
 }
 
 function setup() {
@@ -52,13 +54,15 @@ function setup() {
 }
 
 function draw() {
-  // Update and draw elements
-  for (let i = elements.length - 1; i >= 0; i--) {
-    elements[i].updateElement();
-    elements[i].drawElement();
+  if (touchInteraction) {
+    // Move elements only if touch interaction has occurred
+    // Update and draw elements
+    for (let i = elements.length - 1; i >= 0; i--) {
+      elements[i].updateElement();
+      elements[i].drawElement();
+    }
   }
 }
-
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   resetSketch();
@@ -139,8 +143,17 @@ class Element {
 function touchStarted() {
   if (!mouseOnLink()) {
     elements.push(new Element(mouseX, mouseY));
+    touchInteraction = true; // Set touch interaction to true
   }
-  return false;
+  return true; // Allow default behavior for touch (scrolling)
+}
+
+function touchEnded() {
+  if (!touchInteraction) {
+    // If no touch interaction occurred (no element created), consider it a short tap for navigation
+    // You can add your navigation logic here if needed
+  }
+  touchInteraction = false; // Reset touch interaction flag
 }
 
 function mouseOnLink() {
