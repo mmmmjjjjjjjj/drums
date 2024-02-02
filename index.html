@@ -6,10 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Max Jaffe</title>
   <style>
+    div.container {
+      position: relative;
+      text-align: center;
+      padding: 0;
+    }
+
+    .profile-photo {
+      width: 10%;
+      max-width: 60px;
+      position: sticky;
+      z-index: 2;
+      top: 1px; /* Adjust this value based on your layout */
+    }
+
     div.scroll {
       background-color: initial;
-      width: windowWidth;
-      height: 35em;
+      width: 100%;
       overflow-x: hidden;
       overflow-y: auto;
       text-align: left;
@@ -31,6 +44,7 @@
       font-size: 3em;
       z-index: 3;
       position: relative;
+      margin-top: 20px; /* Adjust this value based on your layout */
     }
 
     h2 {
@@ -56,9 +70,10 @@
     }
 
     canvas {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
+      pointer-events: none;
     }
 
     div.right {
@@ -71,52 +86,47 @@
 </head>
 <blockquote>
 <body>
-  <h1>Max Jaffe</h1>
-  <p>
-    <a href="index.html">ABOUT</a>
-    <a href="music.html">MUSIC</a>
-    <a href="video.html">VIDEOS</a>
-    <a href="gallery.html">GALLERY</a>
-    <a href="mailto:maxjaffe@gmail.com">SAY HELLO</a>
-    <br>
-    <h2>ABOUT</h2>
-  </p>
-  <div class="scroll">
-    <p>
-  <br>Max Jaffe expands the boundaries of possibility for composition 
-  and collaboration through the drum set. His music draws from many different 
-  genres and seeks to break down the boundaries between them. He is part of a cutting edge
-  of drummers that have embraced <a href="https://sunhou.se/artists" target="blank">SUNHOUSE</a> and their Sensory Percussion technology that
-  has shifted the paradigm of the instrument. His powerful solo performances
-  exploit the physicality of the drums to create narrative through movement,
-  defying visual expectations and logic for what a “drum solo” can express.
-  <br>
-  <br>
-  As a collaborator, he is a longtime member of experimental rock collective <a href="https://www.jobsband.net" target="blank">JOBS</a>
-  and was a founding member of Amirtha Kidambi's Elder Ones, Leverage Models, and several other groups.
-  He has toured with <a href="https://iameden.eu/" target="blank">EDEN</a>, <a href="https://youtu.be/DHgLh8aRglk?t=205" target ="blank">Chrome Sparks</a>, Steph Richards, Peter Evans, Rubblebucket, Delicate Steve, Cass McCombs, Oberhofer, Ava Mendoza,
-  and many others. He has performed at a diverse range of festivals including Moers Festival, Big Ears, Panorama NYC, Berlin Jazz Festival, Movement Detroit, Vision Fest, and more. He holds an MFA from 
-  California Institute of the Arts and was a 2021 Pioneer Works Music Resident. 
-  <br>
-  <br>
-  Available for recording sessions, remote tracking, and media scoring. 
-  <br>
-  Available for private lessons in Sensory Percussion, Ableton, drum set, composition.
-  <br>
-  <br>
-  Email <a href="mailto:maxjaffe@gmail.com">maxjaffe@gmail.com</a> or message on 
- 
-  <a href="https://www.instagram.com/mmmmjjjjjjjj/" target="blank">Instagram</a>
-  <br>
-  <br>
-  <a href="https://splice.com/sounds/rubicon/sensory-percussion-moods" target="blank">SPLICE PACK</a> | <a href="press.html">PRESS</a>
-  <br>
-  <br>
-
-
-</p>
+  <div class="container">
+    <h1>Max Jaffe</h1>
+    
+      <p>
+        <a href="index.html">ABOUT</a>
+        <a href="music.html">MUSIC</a>
+        <a href="video.html">VIDEOS</a>
+        <a href="gallery.html">GALLERY</a>
+        <a href="mailto:maxjaffe@gmail.com">SAY HELLO</a>
+        <br>
+        <h2>ABOUT</h2>
+      </p>
+      <img class="profile-photo" src="assets/img/MJ_by_Yousef_Hilmy.jpg" alt="Max Jaffe">
+    <div class="scroll">
+      <p>
+      <br>Max Jaffe expands the boundaries of possibility for composition and collaboration through the drum set.
+      His music draws from many different genres and seeks to break down the boundaries between them.
+      He is part of a cutting edge of drummers that have embraced <a href="https://sunhou.se/artists" target="blank">SUNHOUSE</a>
+      and their Sensory Percussion technology that has shifted the paradigm of the instrument. His powerful solo performances
+      exploit the physicality of the drums to create narrative through movement, defying visual expectations and logic
+      for what a “drum solo” can express.
+      <br>
+      <br> As a collaborator, he is a longtime member of experimental rock collective <a href="https://www.jobsband.net" target="blank">JOBS</a>
+      and was a founding member of Amirtha Kidambi's Elder Ones, Leverage Models, and several other groups.
+      He has toured with <a href="https://iameden.eu/" target="blank">EDEN</a>, <a href="https://youtu.be/DHgLh8aRglk?t=205" target="blank">Chrome Sparks</a>, Steph Richards, Peter Evans,
+      Rubblebucket, Delicate Steve, Cass McCombs, Oberhofer, Ava Mendoza, and many others. He has performed at a diverse
+      range of festivals including Moers Festival, Big Ears, Panorama NYC, Berlin Jazz Festival, Movement Detroit, Vision
+      Fest, and more. He holds an MFA from California Institute of the Arts and was a 2021 Pioneer Works Music Resident.
+      <br>
+      <br> Available for recording sessions, remote tracking, and media scoring.
+      <br> Available for private lessons in Sensory Percussion, Ableton, drum set, composition.
+      <br>
+      <br> Email <a href="mailto:maxjaffe@gmail.com">maxjaffe@gmail.com</a> or message on <a href="https://www.instagram.com/mmmmjjjjjjjj/" target="blank">Instagram</a>
+      <br>
+      <br> <a href="https://splice.com/sounds/rubicon/sensory-percussion-moods" target="blank">SPLICE PACK</a> | <a href="press.html">PRESS</a>
+      <br>
+      <br>
+    </p>
+  </div>
 </div>
-
+<canvas id="defaultCanvas0"></canvas>
 </body>
 </blockquote>
 </html>

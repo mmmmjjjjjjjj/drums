@@ -1,6 +1,6 @@
 let gongSound;
 let filter, reverb;
-let elements = []; // Array to store Element objects
+let elements = [];
 const maxSpeed = 3;
 const minElementSize = 10;
 const maxElementSize = 50;
@@ -21,6 +21,12 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   resetSketch();
 
+  // Remove the existing button if it exists
+  let existingButton = select('#resetButton');
+  if (existingButton) {
+    existingButton.remove();
+  }
+
   // Setup the filter
   filter = new p5.LowPass();
   gongSound.disconnect(); // Disconnect from the master output
@@ -36,7 +42,8 @@ function setup() {
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
   button.position(window.innerWidth - 235, 5);
-  button.mousePressed(resetSketch)
+  button.mousePressed(resetSketch);
+  button.id('resetButton'); // Add an ID to the button
 
   // Create the Element objects
   for (let i = 0; i < 5; i++) {
@@ -57,13 +64,21 @@ function windowResized() {
   resetSketch();
   background(random(50, 180), random(50, 180), 255);
 
+  // Remove the existing button if it exists
+  let existingButton = select('#resetButton');
+  if (existingButton) {
+    existingButton.remove();
+  }
+
   let col = color(255, 255, 255);
   let button = createButton("RESET SKETCH");
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
   button.position(window.innerWidth - 235, 5);
   button.mousePressed(resetSketch);
+  button.id('resetButton'); // Add an ID to the button
 }
+
 // Element class
 class Element {
   constructor(x, y) {
@@ -103,16 +118,13 @@ class Element {
   }
 
   playGongSound() {
-    // Adjust pitch based on the size of the drawn element
     let pitch = map(this.size, minElementSize, maxElementSize, 1.5, 0.5);
     pitch = constrain(pitch, 0.5, 1.5);
     
-    // Set the pitch and trigger the gong sound effect
     gongSound.rate(pitch);
     gongSound.amp(0.5);
     gongSound.play();
 
-    // Adjust filter and reverb parameters based on the position of the element
     let filterFreq = map(this.posX, 0, width, 20, 2000);
     let filterRes = map(this.posY, 0, height, 0.1, 5);
     filter.freq(filterFreq);
@@ -125,17 +137,13 @@ class Element {
 }
 
 function touchStarted() {
-  // Check if the touch interaction is on a link
   if (!mouseOnLink()) {
-    // Create a new element at the touch position
     elements.push(new Element(mouseX, mouseY));
   }
-  // Prevent the default behavior to avoid interference with links and scrolling
   return false;
 }
 
 function mouseOnLink() {
-  // Check if the mouse is on any link
   let links = document.getElementsByTagName("a");
   for (let i = 0; i < links.length; i++) {
     let linkPos = links[i].getBoundingClientRect();
