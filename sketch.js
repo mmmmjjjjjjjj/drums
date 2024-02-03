@@ -135,7 +135,7 @@ class Element {
   playGongSound() {
     let pitch = map(this.size, minElementSize, maxElementSize, 1.5, 0.5);
     pitch = constrain(pitch, 0.5, 1.5);
-    
+
     gongSound.rate(pitch);
     gongSound.amp(0.5);
     gongSound.play();
@@ -153,21 +153,21 @@ class Element {
 
 function touchStarted(event) {
   if (event.cancelable) {
-    // Prevent default to avoid conflicts with touch interactions
-    event.preventDefault();
+    // Prevent default only when creating a new element
+    if (!mouseOnLink()) {
+      event.preventDefault();
+    }
   }
 
   if (!mouseOnLink()) {
     elements.push(new Element(mouseX, mouseY));
   }
-  return false;
 }
 
 function mousePressed() {
   if (!mouseOnLink()) {
     elements.push(new Element(mouseX, mouseY));
   }
-  return false;
 }
 
 function mouseOnLink() {
