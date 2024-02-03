@@ -4,76 +4,105 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Max Jaffe</title>
+  <title>PRESS</title>
   <style>
-    div.scroll { 
+    div.container {
+      position: relative;
+      text-align: center;
+      padding: 0;
+      z-index: 2;
+    }
+
+    .profile-photo {
+      width: 10%;
+      max-width: 60px;
+      position: sticky;
+      z-index: 2;
+      top: 0px; /* Adjust this value based on your layout */
+    }
+
+    div.scroll {
       background-color: initial;
-      width: windowWidth;
-      height: 35em;
+      width: auto;
       overflow-x: hidden;
       overflow-y: auto;
       text-align: left;
       padding: 0;
-  }
+    }
+
     * {
       box-sizing: border-box;
     }
+
     body {
       padding: 0;
       margin: 0;
-      color: rgb(255, 255, 255);
+      color: rgb(235, 235, 235);
     }
 
     h1 {
-      font-family: 'Menlo', sans-serif;
+      font-family: 'menlo', sans-serif;
       font-size: 3em;
       z-index: 3;
       position: relative;
+      margin-top: 0px; /* Adjust this value based on your layout */
     }
+
     h2 {
-      font-family: 'Menlo', sans-serif;
+      font-family: 'menlo', sans-serif;
       font-size: 2em;
       z-index: 3;
       position: relative;
     }
-    p {
-      font-family: 'Menlo', sans-serif;
+    h3 {
+      font-family: 'menlo', sans-serif;
       font-size: 1em;
       z-index: 3;
       position: relative;
-    } 
-    a:visited{
+    }
+    p {
+      font-family: 'menlo', sans-serif;
+      font-size: 1em;
+      z-index: 3;
+      position: relative;
+    }
+
+    a:visited {
       color: lavender;
     }
+
     a:link {
       color: lavender;
     }
+
     canvas {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
+      pointer-events: none;
     }
 
-    div.right { text-align: right;}
+    div.right {
+      text-align: right;
+    }
   </style>
   <script src="../p5.js"></script>
   <script src="../p5.sound.min.js"></script>
   <script src="sketch.js"></script>
-
 </head>
 <blockquote>
 <body>
-  
-  <h1>Max Jaffe</h1>
-<p>
-  <a href="index.html">ABOUT</a> 
-  <a href="music.html">MUSIC</a>
-  <a href="video.html">VIDEOS</a>
-  <a href="gallery.html">GALLERY</a>
-  <a href="mailto:maxjaffe@gmail.com">SAY HELLO</a>
-  <br>
+  <div class="container">
+    <h1>Max Jaffe</h1>
+      <h3>
+        <a href="index.html">ABOUT</a>
+        <a href="music.html">MUSIC</a>
+        <a href="video.html">VIDEOS</a>
+        <a href="gallery.html">GALLERY</a>
+        <a href="mailto:maxjaffe@gmail.com">SAY HELLO</a>
+        </h3>
   <h2>PRESS</h2>
-</p>
+
 <div class="scroll">
 <p>
     <a href="https://www.tinymixtapes.com/features/max-jaffe">Tiny Mix Tapes</a>

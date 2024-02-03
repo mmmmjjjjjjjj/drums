@@ -4,19 +4,23 @@ let elements = [];
 const maxSpeed = 3;
 const minElementSize = 10;
 const maxElementSize = 50;
-let touchInteraction = false;
 
 function preload() {
   // Load the gong sound effect
   gongSound = loadSound("assets/GONG.mp3");
 }
 
-function resetSketch() {
+function resetSketch(userInteraction = false) {
   background(random(50, 180), random(50, 180), 255);
   stroke(255);
   fill(0);
   elements = []; // Reset the array of elements
-  touchInteraction = false; // Reset touch interaction
+
+  // Check if the reset is triggered by user interaction
+  if (userInteraction) {
+    // Create a new element only if it's a user interaction
+    elements.push(new Element(mouseX, mouseY));
+  }
 }
 
 function setup() {
@@ -44,25 +48,25 @@ function setup() {
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
   button.position(window.innerWidth - 235, 5);
-  button.mousePressed(resetSketch);
-  button.id('resetButton'); // Add an ID to the button
+  button.mousePressed(() => {
+    // Check if the button is pressed by a touch interaction
+    if (touches.length === 0) {
+      resetSketch(true); // Pass true to indicate user interaction
+    }
+    return false; // Add this line to prevent creating new elements on button press
+  });
 
-  // Create the Element objects
-  for (let i = 0; i < 5; i++) {
-    elements.push(new Element(random(width), random(height)));
-  }
+  button.id('resetButton'); // Add an ID to the button
 }
 
 function draw() {
-  if (touchInteraction) {
-    // Move elements only if touch interaction has occurred
-    // Update and draw elements
-    for (let i = elements.length - 1; i >= 0; i--) {
-      elements[i].updateElement();
-      elements[i].drawElement();
-    }
+  // Update and draw elements
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].updateElement();
+    elements[i].drawElement();
   }
 }
+
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   resetSketch();
@@ -79,7 +83,14 @@ function windowResized() {
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
   button.position(window.innerWidth - 235, 5);
-  button.mousePressed(resetSketch);
+  button.mousePressed(() => {
+    // Check if the button is pressed by a touch interaction
+    if (touches.length === 0) {
+      resetSketch(true); // Pass true to indicate user interaction
+    }
+    return false; // Add this line to prevent creating new elements on button press
+  });
+
   button.id('resetButton'); // Add an ID to the button
 }
 
@@ -140,20 +151,23 @@ class Element {
   }
 }
 
-function touchStarted() {
+function touchStarted(event) {
+  if (event.cancelable) {
+    // Prevent default to avoid conflicts with touch interactions
+    event.preventDefault();
+  }
+
   if (!mouseOnLink()) {
     elements.push(new Element(mouseX, mouseY));
-    touchInteraction = true; // Set touch interaction to true
   }
-  return true; // Allow default behavior for touch (scrolling)
+  return false;
 }
 
-function touchEnded() {
-  if (!touchInteraction) {
-    // If no touch interaction occurred (no element created), consider it a short tap for navigation
-    // You can add your navigation logic here if needed
+function mousePressed() {
+  if (!mouseOnLink()) {
+    elements.push(new Element(mouseX, mouseY));
   }
-  touchInteraction = false; // Reset touch interaction flag
+  return false;
 }
 
 function mouseOnLink() {

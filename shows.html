@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHOWS</title>
+  <style>
+    div.container {
+      position: relative;
+      text-align: center;
+      padding: 0;
+    }
+
+    .profile-photo {
+      width: 10%;
+      max-width: 60px;
+      position: sticky;
+      z-index: 2;
+      top: 0px; /* Adjust this value based on your layout */
+    }
+
+    div.scroll {
+      background-color: initial;
+      width: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align: left;
+      padding: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      padding: 0;
+      margin: 0;
+      color: rgb(235, 235, 235);
+    }
+
+    h1 {
+      font-family: 'menlo', sans-serif;
+      font-size: 3em;
+      z-index: 3;
+      position: relative;
+      margin-top: 0px; /* Adjust this value based on your layout */
+    }
+
+    h2 {
+      font-family: 'menlo', sans-serif;
+      font-size: 2em;
+      z-index: 3;
+      position: relative;
+    }
+
+    h3 {
+      font-family: 'menlo', sans-serif;
+      font-size: 1em;
+      z-index: 3;
+      position: relative;
+    }
+
+    p {
+      font-family: 'menlo', sans-serif;
+      font-size: 1em;
+      z-index: 3;
+      position: relative;
+    }
+
+    a:visited {
+      color: lavender;
+    }
+
+    a:link {
+      color: lavender;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    div.right {
+      text-align: right;
+    }
+
+    #calendar {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    #calendar table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    #calendar th,
+    #calendar td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    #calendar th {
+      background-color: #333;
+      color: white;
+    }
+
+    #calendar td {
+      background-color: #4d4d4d;
+    }
+  </style>
+  <script src="../p5.js"></script>
+  <script src="../p5.sound.min.js"></script>
+  <script src="sketch.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Max Jaffe</h1>
+    <h3>
+      <a href="index.html">ABOUT</a>
+      <a href="music.html">MUSIC</a>
+      <a href="video.html">VIDEOS</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="mailto:maxjaffe@gmail.com">SAY HELLO</a>
+    </h3>
+    <h2>SHOWS</h2>
+    <div id="calendar"></div>
+
+    <script>
+      function initGoogleApiClient() {
+        gapi.client.init({
+          apiKey: 'AIzaSyAKSz0qPy4UJQZtYIVWh5G8qlz_8V16JmE',
+          clientId: '696441317562-lebk943k8a0ip1bjg051kka8s11im7ua.apps.googleusercontent.com',
+          discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
+          scope: 'https://www.googleapis.com/auth/calendar.readonly',
+        }).then(function () {
+          loadGoogleCalendarEvents();
+        });
+      }
+
+      function loadGoogleCalendarEvents() {
+        gapi.client.calendar.events.list({
+          'calendarId': 'u9e1t8pbgdq10e7tdmcn80l398@group.calendar.google.com',
+          'timeMin': (new Date()).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': 10,
+          'orderBy': 'startTime',
+        }).then(function (response) {
+          const events = response.result.items;
+          renderEvents(events);
+        });
+      }
+
+      function renderEvents(events) {
+        const calendarContainer = document.getElementById('calendar');
+        events.forEach(event => {
+          const eventDiv = document.createElement('div');
+          eventDiv.innerHTML = `<strong>${event.summary}</strong><br>${event.start.dateTime}`;
+          calendarContainer.appendChild(eventDiv);
+        });
+      }
+    </script>
+
+    <!-- Load the Google API script after defining the functions -->
+    <script src="https://apis.google.com/js/api.js?onload=initGoogleApiClient"></script>
+  </div>
+</body>
+
+</html>

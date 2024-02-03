@@ -2,151 +2,152 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <title>Max Jaffe</title>
-    
-    <style>
-        div.scroll {
-            background-color: initial;
-            width: windowWidth;
-            height: windowHeight;
-            overflow-x: hidden;
-            overflow-y: auto;
-            text-align: left;
-            padding: 0;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GALLERY</title>
+  <style>
+     div.container {
+      position: relative;
+      text-align: center;
+      padding: 0;
+      z-index: 2;
+    }
+    div.scroll {
+      background-color: initial;
+      width: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      text-align: center;
+      padding: 0;
+    }
 
-        * {
-            box-sizing: border-box;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        body {
-            padding: 0;
-            margin: 0;
-            color: rgb(240, 155, 230);
-        }
+    body {
+      padding: 0;
+      margin: 0;
+      color: rgb(255, 255, 255);
+    }
 
-        img {
-            vertical-align: middle;
-        }
+    img {
+      vertical-align: middle;
+    }
 
-        .container {
-            position: relative;
-        }
+    .container {
+        position: relative;
+    }
+    .mySlides {
+        display: none;
+    }
+    .cursor {
+        cursor: pointer;
+    }
+    .prev,
+    .next {
+        cursor: pointer;
+        position: absolute;
+        top: 40%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+           -webkit-user-select: none;
+    }
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+    .column {
+        float: left;
+        width: 16.66%;
+    }
+    .demo {
+        opacity: 0.6;
+    }
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
+    h1 {
+      font-family: 'menlo', sans-serif;
+      font-size: 3em;
+      z-index: 3;
+      position: relative;
+      margin-top: 0px; /* Adjust this value based on your layout */
+    }
 
-        .mySlides {
-            display: none;
-        }
+    h2 {
+      font-family: 'menlo', sans-serif;
+      font-size: 2em;
+      z-index: 3;
+      position: relative;
+    }
+    h3 {
+      font-family: 'menlo', sans-serif;
+      font-size: 1em;
+      z-index: 3;
+      position: relative;
+    }
+    p {
+      font-family: 'menlo', sans-serif;
+      font-size: 1em;
+      z-index: 3;
+      position: relative;
+    }
 
-        .cursor {
-            cursor: pointer;
-        }
+    a:visited {
+      color: lavender;
+    }
 
-        .prev,
-        .next {
-            cursor: pointer;
-            position: absolute;
-            top: 40%;
-            width: auto;
-            padding: 16px;
-            margin-top: -50px;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-            -webkit-user-select: none;
-        }
+    a:link {
+      color: lavender;
+    }
 
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
 
-        .prev:hover,
-        .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .numbertext {
-            color: #f2f2f2;
-            font-size: 12px;
-            padding: 8px 12px;
-            position: absolute;
-            top: 0;
-        }
-
-        .column {
-            float: left;
-            width: 16.66%;
-        }
-
-        .demo {
-            opacity: 0.6;
-        }
-
-        .active,
-        .demo:hover {
-            opacity: 1;
-        }
-
-        h1 {
-            font-family: 'Menlo', sans-serif;
-            font-size: 3em;
-            z-index: 3;
-            position: relative;
-        }
-
-        h2 {
-            font-family: 'Menlo', sans-serif;
-            font-size: 2em;
-            z-index: 3;
-            position: relative;
-        }
-
-        p {
-            font-family: 'Menlo', sans-serif;
-            font-size: 1em;
-            z-index: 3;
-            position: relative;
-        }
-
-        a:visited {
-            color: lavender;
-        }
-
-        a:link {
-            color: lavender;
-        }
-
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        div.right {
-            text-align: right;
-        }
+    div.right {
+      text-align: center;
+    }
     </style>
-
+  <script src="../p5.js"></script>
+  <script src="../p5.sound.min.js"></script>
+  <script src="sketch.js"></script>
 </head>
-
-
 <blockquote>
 <body>
-
+    <div class="container">
         <h1>Max Jaffe</h1>
-        <p>
+        <h3>
             <a href="index.html">ABOUT</a>
             <a href="music.html">MUSIC</a>
             <a href="video.html">VIDEOS</a>
             <a href="gallery.html">GALLERY</a>
             <a href="mailto:maxjaffe@gmail.com">SAY HELLO</a>
-            <br>
+            </h3>
         <h2>Gallery</h2>
-        </p>
+
         <div class="scroll">
         <div class="container">
             <div class="mySlides">
