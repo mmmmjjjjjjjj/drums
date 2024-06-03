@@ -1,10 +1,9 @@
 let gongSound;
-let filter, reverb;
-let elements = [];
+
+let elements = []; // Array to store Element objects
 const maxSpeed = 3;
 const minElementSize = 10;
 const maxElementSize = 50;
-let touchInteraction = false;
 
 function preload() {
   // Load the gong sound effect
@@ -16,28 +15,11 @@ function resetSketch() {
   stroke(255);
   fill(0);
   elements = []; // Reset the array of elements
-  touchInteraction = false; // Reset touch interaction
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(window.innerWidth, window.innerHeight);
   resetSketch();
-
-  // Remove the existing button if it exists
-  let existingButton = select('#resetButton');
-  if (existingButton) {
-    existingButton.remove();
-  }
-
-  // Setup the filter
-  filter = new p5.LowPass();
-  gongSound.disconnect(); // Disconnect from the master output
-  gongSound.connect(filter);
-
-  // Setup the reverb
-  reverb = new p5.Reverb();
-  gongSound.connect(reverb);
-  reverb.amp(1); // Adjust reverb amplitude
 
   let col = color(255, 255, 255);
   let button = createButton("RESET SKETCH");
@@ -45,42 +27,27 @@ function setup() {
   button.style("font-family", "Helvetica");
   button.position(window.innerWidth - 235, 5);
   button.mousePressed(resetSketch);
-  button.id('resetButton'); // Add an ID to the button
-
-  // Create the Element objects
-  for (let i = 0; i < 5; i++) {
-    elements.push(new Element(random(width), random(height)));
-  }
 }
 
 function draw() {
-  if (touchInteraction) {
-    // Move elements only if touch interaction has occurred
-    // Update and draw elements
-    for (let i = elements.length - 1; i >= 0; i--) {
-      elements[i].updateElement();
-      elements[i].drawElement();
-    }
+  // Update and draw elements
+  for (let i = elements.length - 1; i >= 0; i--) {
+    elements[i].updateElement();
+    elements[i].drawElement();
   }
 }
+
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   resetSketch();
   background(random(50, 180), random(50, 180), 255);
 
-  // Remove the existing button if it exists
-  let existingButton = select('#resetButton');
-  if (existingButton) {
-    existingButton.remove();
-  }
-
   let col = color(255, 255, 255);
   let button = createButton("RESET SKETCH");
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
   button.position(window.innerWidth - 235, 5);
   button.mousePressed(resetSketch);
-  button.id('resetButton'); // Add an ID to the button
 }
 
 // Element class
@@ -122,52 +89,18 @@ class Element {
   }
 
   playGongSound() {
+    // Adjust pitch based on the size of the drawn element
     let pitch = map(this.size, minElementSize, maxElementSize, 1.5, 0.5);
     pitch = constrain(pitch, 0.5, 1.5);
     
+    // Set the pitch and trigger the gong sound effect
     gongSound.rate(pitch);
     gongSound.amp(0.5);
     gongSound.play();
-
-    let filterFreq = map(this.posX, 0, width, 20, 2000);
-    let filterRes = map(this.posY, 0, height, 0.1, 5);
-    filter.freq(filterFreq);
-    filter.res(filterRes);
-
-    let reverbTime = map(this.posX, 0, width, 1, 10);
-    let reverbDecay = map(this.posY, 0, height, 0.1, 1);
-    reverb.process(gongSound, reverbTime, reverbDecay);
   }
 }
 
-function touchStarted() {
-  if (!mouseOnLink()) {
-    elements.push(new Element(mouseX, mouseY));
-    touchInteraction = true; // Set touch interaction to true
-  }
-  return true; // Allow default behavior for touch (scrolling)
-}
-
-function touchEnded() {
-  if (!touchInteraction) {
-    // If no touch interaction occurred (no element created), consider it a short tap for navigation
-    // You can add your navigation logic here if needed
-  }
-  touchInteraction = false; // Reset touch interaction flag
-}
-
-function mouseOnLink() {
-  let links = document.getElementsByTagName("a");
-  for (let i = 0; i < links.length; i++) {
-    let linkPos = links[i].getBoundingClientRect();
-    if (
-      mouseX >= linkPos.left &&
-      mouseX <= linkPos.right &&
-      mouseY >= linkPos.top &&
-      mouseY <= linkPos.bottom
-    ) {
-      return true;
-    }
-  }
-  return false;
+function mousePressed() {
+  // Create a new element at the mouse position when mouse is pressed
+  elements.push(new Element(mouseX, mouseY));
 }
