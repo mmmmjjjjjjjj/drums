@@ -26,7 +26,13 @@ function setup() {
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
   button.position(window.innerWidth - 235, 5);
-  button.mousePressed(resetSketch);
+  
+  // Prevent new element creation when the button is clicked
+  button.mousePressed(function (event) {
+    event.stopPropagation(); // Prevent mousePressed from firing
+    resetSketch(); // Reset the sketch without creating a new element
+  });
+
 }
 
 function draw() {
