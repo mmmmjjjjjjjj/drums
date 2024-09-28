@@ -1,9 +1,9 @@
 let gongSound;
-
 let elements = []; // Array to store Element objects
 const maxSpeed = 3;
 const minElementSize = 10;
 const maxElementSize = 50;
+let buttonPressed = false; // Flag to track button press
 
 function preload() {
   // Load the gong sound effect
@@ -15,6 +15,7 @@ function resetSketch() {
   stroke(255);
   fill(0);
   elements = []; // Reset the array of elements
+  buttonPressed = false; // Reset the flag after resetting
 }
 
 function setup() {
@@ -26,13 +27,13 @@ function setup() {
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
   button.position(window.innerWidth - 235, 5);
-  
+
   // Prevent new element creation when the button is clicked
   button.mousePressed(function (event) {
     event.stopPropagation(); // Prevent mousePressed from firing
+    buttonPressed = true; // Set flag to true
     resetSketch(); // Reset the sketch without creating a new element
   });
-
 }
 
 function draw() {
@@ -53,7 +54,11 @@ function windowResized() {
   button.style('background-color', col);
   button.style("font-family", "Helvetica");
   button.position(window.innerWidth - 235, 5);
-  button.mousePressed(resetSketch);
+  button.mousePressed(function (event) {
+    event.stopPropagation(); // Prevent mousePressed from firing
+    buttonPressed = true; // Set flag to true
+    resetSketch(); // Reset the sketch without creating a new element
+  });
 }
 
 // Element class
@@ -107,6 +112,9 @@ class Element {
 }
 
 function mousePressed() {
-  // Create a new element at the mouse position when mouse is pressed
-  elements.push(new Element(mouseX, mouseY));
+  // Prevent element creation if the reset button was pressed
+  if (!buttonPressed) {
+    // Create a new element at the mouse position when mouse is pressed
+    elements.push(new Element(mouseX, mouseY));
+  }
 }
