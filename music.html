@@ -18,7 +18,7 @@
       max-width: 60px;
       position: sticky;
       z-index: 2;
-      top: 0px; /* Adjust this value based on your layout */
+      top: 0px;
     }
 
     div.scroll {
@@ -29,11 +29,6 @@
       text-align: center;
       padding: 0;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       padding: 0;
       margin: 0;
@@ -41,49 +36,72 @@
     }
 
     h1 {
-      font-family: 'menlo', sans-serif;
       font-size: 3em;
+      font-family: 'menlo', sans-serif;
       z-index: 3;
       position: relative;
-      margin-top: 0px; /* Adjust this value based on your layout */
+      margin-top: 0px;
     }
 
     h2 {
-      font-family: 'menlo', sans-serif;
       font-size: 2em;
+      font-family: 'menlo', sans-serif;
       z-index: 3;
       position: relative;
     }
+
     h3 {
-      font-family: 'menlo', sans-serif;
       font-size: 1em;
+      font-family: 'menlo', sans-serif;
       z-index: 3;
       position: relative;
     }
+
     p {
-      font-family: 'menlo', sans-serif;
       font-size: 1em;
+      font-family: 'menlo', sans-serif;
       z-index: 3;
       position: relative;
     }
 
-    a:visited {
+    a:visited, a:link {
       color: lavender;
     }
 
-    a:link {
-      color: lavender;
-    }
-
+    iframe {
+      width: 100%;
+      max-width: 600px;
+      height: auto  }
     canvas {
       position: fixed;
       top: 0;
       left: 0;
       pointer-events: none;
     }
-
+    .iframe-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
     div.right {
       text-align: right;
+    }
+
+    /* Responsive Design */
+    @media (min-width: 768px) {
+      iframe {
+        max-width: 200px;
+        height: 200px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      iframe {
+        max-width: 600px;
+        height: 600px;
+        
+      }
     }
   </style>
   <script src="../p5.js"></script>
@@ -94,87 +112,85 @@
 <body>
   <div class="container">
     <h1>Max Jaffe</h1>
-      <h3>
-        <a href="index.html">ABOUT</a>
-        <a href="music.html">MUSIC</a>
-        <a href="video.html">VIDEOS</a>
-        <a href="gallery.html">GALLERY</a>
-        <a href="mailto:maxjaffe@gmail.com">SAY HELLO</a>
-        </h3>
+    <h3>
+      <a href="index.html">ABOUT</a> |
+      <a href="music.html">MUSIC</a> |
+      <a href="video.html">VIDEOS</a> |
+      <a href="gallery.html">GALLERY</a> |
+      <a href="mailto:maxjaffe@gmail.com">SAY HELLO</a>
+    </h3>
+
     <h2>MUSIC</h2>
     <div style="height:750px; width:auto; overflow-y: auto">
+      <h3>REDUCTION OF MAN - 09.13.24 - WHITED SEPULCHRE RECORDS</h3>
+      <iframe style="border: 0; width: 470px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=1817153125/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless></iframe>
 
-  <h3>REDUCTION OF MAN - 09.13.24 - WHITED SEPULCHRE RECORDS</h3>
-  <br>
- 
-  <iframe style="float:right; border: 0; width: 100%; height:100%; object-fit:fill;" src="https://bandcamp.com/EmbeddedPlayer/album=1817153125/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://maxjaffe.bandcamp.com/album/reduction-of-man-2">Reduction of Man by Max Jaffe</a></iframe> 
-
-  <br>
-  <h3>HARRINGTON | JAFFE | SHIROISHI</h3>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=528992711/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://maximumoverdub.bandcamp.com/album/zebulon">Zebulon! by Dave Harrington | Max Jaffe | Patrick Shiroishi</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=229064954/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://daveharringtonmaxjaffepatrickshiroishi.bandcamp.com/album/speak-moment">Speak, Moment by Dave Harrington, Max Jaffe, Patrick Shiroishi</a></iframe>
-  <br>
-  <H3>JOBS</H3>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=2561118017/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://jobsband.bandcamp.com/album/soft-sounds">Soft Sounds by JOBS</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=1395019343/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://jobsband.bandcamp.com/album/endless-birthdays-2">endless birthdays by JOBS</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=4236811046/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://jobsband.bandcamp.com/album/log-on-for-the-free-chance-to-log-on-for-free">Log On For The Free Chance To Log On For Free by JOBS</a></iframe>
-  <br>
-  <H3>SOLO WORKS</H3>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=2352235261/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://maxjaffe.bandcamp.com/album/tessellation-rhythms">Tessellation Rhythms by Max Jaffe</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=335125744/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://maxjaffe.bandcamp.com/album/pulse">pulse by Max Jaffe</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=1864874997/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://maxjaffe.bandcamp.com/album/frwd">FRWD by Max Jaffe</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=2045134982/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://maxjaffe.bandcamp.com/album/giant-beat-2">Giant Beat by Max Jaffe</a></iframe>
-  <br>
-  <H3>RECENT WORKS</H3>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=4028601490/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://wand.bandcamp.com/album/vertigo">Vertigo by Wand</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=592371331/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://stephrichards.bandcamp.com/album/power-vibe-2">Power Vibe by Steph Richards</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=1366374998/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=3007236613/transparent=true/" seamless><a href="https://touched.bandcamp.com/album/john-tejada-presents-future-stars">John Tejada Presents Future Stars by Max Jaffe</a></iframe>
-  <BR>
-  <H3>ELDER ONES</H3>  
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=1632580698/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://amirthakidambi.bandcamp.com/album/holy-science">Holy Science by Elder Ones</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=3887533018/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://amirthakidambi.bandcamp.com/album/from-untruth">From Untruth by Elder Ones</a></iframe>
-  <br>
-  <H3>GAVIN GAMBOA</H3>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=4098847988/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://gav.cloud/album/quadratic-lattice-with-max-jaffe">Quadratic Lattice • with Max Jaffe by Gavin Gamboa</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=972317833/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=2676996509/transparent=true/" seamless><a href="https://gav.cloud/album/urgency-apparatus">Urgency Apparatus by Gavin Gamboa</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=1838529319/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://gav.cloud/album/discovery-of-new-species">Discovery Of New Species by Gavin Gamboa</a></iframe>
-  <br>
-  <H3>LEVERAGE MODELS</H3>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=3092289088/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://leveragemodels.bandcamp.com/album/whites">Whites by Leverage Models</a></iframe>
-  <iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=3165370116/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://leveragemodels.bandcamp.com/album/leverage-models-2">Leverage Models by Leverage Models</a></iframe>
-  <br>
-  <H3>MORE BANDS AND FRIENDS</H3>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=2920793711/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://johncolpitts.bandcamp.com/album/100-disciplines">100 Disciplines by Kid Millions</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=1107207885/size=large/bgcol=ffffff/linkcol=333333/tracklist=false/transparent=true/" seamless><a href="https://thecourtesygangtrio.bandcamp.com/album/the-courtesy-gang-trio">The Courtesy Gang Trio by The Courtesy Gang Trio</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=2569943512/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://dhgroup.bandcamp.com/album/big-shapes-vol-1">BIG SHAPES: Vol. 1 by BIG SHAPES: Goldberger/Haffner/Harrington/Jaffe</a></iframe>
-  <BR>
-   <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=443407089/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/track=3939981329/transparent=true/" seamless><a href="https://rubblebucket.bandcamp.com/album/if-u-c-my-enemies">If U C My Enemies by Rubblebucket</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=2030164854/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://linatullgren.bandcamp.com/album/free-cell">Free Cell by Lina Tullgren</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=2920816010/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=3139514514/transparent=true/" seamless><a href="https://landlady.bandcamp.com/album/upright-behavior">Upright Behavior by Landlady</a></iframe> 
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=1870605500/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://dannyfisherlochhead.bandcamp.com/album/homebody-2">Homebody by Danny Fisher-Lochhead</a></iframe>
-  <BR>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=3666176161/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://cassauna.bandcamp.com/album/minimal-surface">Minimal Surface by Thee Reps</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=3312989931/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://davidwaxmuseum.bandcamp.com/album/remember-my-future">Remember My Future by David Wax Museum</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=334007838/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://davidwaxmuseum.bandcamp.com/album/guesthouse">Guesthouse by David Wax Museum</a></iframe> 
-<BR>
- 
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=1272902167/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://stevenlugerner.bandcamp.com/album/yeaux">Yeaux by CHIVES</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=665459407/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://stevenlugerner.bandcamp.com/album/live-at-the-bunker">Live at The Bunker by Steven Lugerner Dectet</a></iframe>
-  <br>
-
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=1781076583/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=3751222614/transparent=true/" seamless><a href="https://inonewindmusic.bandcamp.com/album/how-bright-a-remix">How Bright a Remix! by In One Wind</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=2690100224/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=2655979551/transparent=true/" seamless><a href="https://inonewindmusic.bandcamp.com/album/lean">Lean by In One Wind</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=1319776785/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://inonewindmusic.bandcamp.com/album/how-bright-a-shadow">How Bright a Shadow! by In One Wind</a></iframe>
-  <br>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=3526033451/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://jobsband.bandcamp.com/album/killer-bob-sings-2">killer BOB sings by JOBS</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=2608049038/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://killerbob.bandcamp.com/album/split-w-wei-zhongle">Split (w/ Wei Zhongle) by killer BOB</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=3668955703/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://killerbob.bandcamp.com/album/o-n-o-repeat">(o)N(o) Repeat by killer BOB</a></iframe>
-  <iframe style="border: 0; width: 150px; height: 150px;" src="https://bandcamp.com/EmbeddedPlayer/album=1587513513/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://killerbob.bandcamp.com/album/fear-may-be-a-builder">fear may be a builder by killer BOB</a></iframe>
-<BR>  
-</p>
-</div>
-</div>
-<canvas id="defaultCanvas0"></canvas>
+      <h3>HARRINGTON | JAFFE | SHIROISHI</h3>
+      <iframe style="border: 0; width: 300px; height: 300px;"src="https://bandcamp.com/EmbeddedPlayer/album=528992711/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless></iframe>
+      <iframe style="border: 0; width: 300px; height: 300px;"src="https://bandcamp.com/EmbeddedPlayer/album=229064954/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless></iframe>
+      <br>
+      <H3>JOBS</H3>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2561118017/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://jobsband.bandcamp.com/album/soft-sounds">Soft Sounds by JOBS</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1395019343/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://jobsband.bandcamp.com/album/endless-birthdays-2">endless birthdays by JOBS</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=4236811046/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://jobsband.bandcamp.com/album/log-on-for-the-free-chance-to-log-on-for-free">Log On For The Free Chance To Log On For Free by JOBS</a></iframe>
+      <br>
+      <H3>SOLO WORKS</H3>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2352235261/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://maxjaffe.bandcamp.com/album/tessellation-rhythms">Tessellation Rhythms by Max Jaffe</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=335125744/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://maxjaffe.bandcamp.com/album/pulse">pulse by Max Jaffe</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1864874997/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://maxjaffe.bandcamp.com/album/frwd">FRWD by Max Jaffe</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2045134982/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://maxjaffe.bandcamp.com/album/giant-beat-2">Giant Beat by Max Jaffe</a></iframe>
+      <br>
+      <H3>RECENT WORKS</H3>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=4028601490/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://wand.bandcamp.com/album/vertigo">Vertigo by Wand</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=592371331/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://stephrichards.bandcamp.com/album/power-vibe-2">Power Vibe by Steph Richards</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3274852353/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=2974427834/transparent=true/" seamless><a href="https://teendaze.bandcamp.com/album/elegant-rhythms">Elegant Rhythms by Teen Daze</a></iframe>
+      <BR>
+      <H3>ELDER ONES</H3>  
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1632580698/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://amirthakidambi.bandcamp.com/album/holy-science">Holy Science by Elder Ones</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3887533018/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://amirthakidambi.bandcamp.com/album/from-untruth">From Untruth by Elder Ones</a></iframe>
+      <br>
+      <H3>GAVIN GAMBOA</H3>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=4098847988/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://gav.cloud/album/quadratic-lattice-with-max-jaffe">Quadratic Lattice • with Max Jaffe by Gavin Gamboa</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=972317833/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=2676996509/transparent=true/" seamless><a href="https://gav.cloud/album/urgency-apparatus">Urgency Apparatus by Gavin Gamboa</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1838529319/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://gav.cloud/album/discovery-of-new-species">Discovery Of New Species by Gavin Gamboa</a></iframe>
+      <br>
+      <H3>LEVERAGE MODELS</H3>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3092289088/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://leveragemodels.bandcamp.com/album/whites">Whites by Leverage Models</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3165370116/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://leveragemodels.bandcamp.com/album/leverage-models-2">Leverage Models by Leverage Models</a></iframe>
+      <br>
+      <H3>MORE BANDS AND FRIENDS</H3>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1366374998/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=3007236613/transparent=true/" seamless><a href="https://touched.bandcamp.com/album/john-tejada-presents-future-stars">John Tejada Presents Future Stars by Max Jaffe</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2383289922/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=3301022319/transparent=true/" seamless><a href="https://calarts-ea-ensemble.bandcamp.com/album/electroacoustic-ensemble">Electroacoustic Ensemble by Max Jaffe</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2920793711/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://johncolpitts.bandcamp.com/album/100-disciplines">100 Disciplines by Kid Millions</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1107207885/size=large/bgcol=ffffff/linkcol=333333/tracklist=false/transparent=true/" seamless><a href="https://thecourtesygangtrio.bandcamp.com/album/the-courtesy-gang-trio">The Courtesy Gang Trio by The Courtesy Gang Trio</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2569943512/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://dhgroup.bandcamp.com/album/big-shapes-vol-1">BIG SHAPES: Vol. 1 by BIG SHAPES: Goldberger/Haffner/Harrington/Jaffe</a></iframe>
+      <BR>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=443407089/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/track=3939981329/transparent=true/" seamless><a href="https://rubblebucket.bandcamp.com/album/if-u-c-my-enemies">If U C My Enemies by Rubblebucket</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2030164854/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://linatullgren.bandcamp.com/album/free-cell">Free Cell by Lina Tullgren</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2920816010/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=3139514514/transparent=true/" seamless><a href="https://landlady.bandcamp.com/album/upright-behavior">Upright Behavior by Landlady</a></iframe> 
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1870605500/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://dannyfisherlochhead.bandcamp.com/album/homebody-2">Homebody by Danny Fisher-Lochhead</a></iframe>
+      <BR>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3666176161/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://cassauna.bandcamp.com/album/minimal-surface">Minimal Surface by Thee Reps</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3312989931/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://davidwaxmuseum.bandcamp.com/album/remember-my-future">Remember My Future by David Wax Museum</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=334007838/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://davidwaxmuseum.bandcamp.com/album/guesthouse">Guesthouse by David Wax Museum</a></iframe> 
+    <BR>
+     
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1272902167/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://stevenlugerner.bandcamp.com/album/yeaux">Yeaux by CHIVES</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=665459407/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://stevenlugerner.bandcamp.com/album/live-at-the-bunker">Live at The Bunker by Steven Lugerner Dectet</a></iframe>
+      <br>
+    
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1781076583/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=3751222614/transparent=true/" seamless><a href="https://inonewindmusic.bandcamp.com/album/how-bright-a-remix">How Bright a Remix! by In One Wind</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2690100224/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/track=2655979551/transparent=true/" seamless><a href="https://inonewindmusic.bandcamp.com/album/lean">Lean by In One Wind</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1319776785/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://inonewindmusic.bandcamp.com/album/how-bright-a-shadow">How Bright a Shadow! by In One Wind</a></iframe>
+      <br>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3526033451/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://jobsband.bandcamp.com/album/killer-bob-sings-2">killer BOB sings by JOBS</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=2608049038/size=large/bgcol=ffffff/linkcol=0687f5/minimal=true/transparent=true/" seamless><a href="https://killerbob.bandcamp.com/album/split-w-wei-zhongle">Split (w/ Wei Zhongle) by killer BOB</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3668955703/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://killerbob.bandcamp.com/album/o-n-o-repeat">(o)N(o) Repeat by killer BOB</a></iframe>
+      <iframe src="https://bandcamp.com/EmbeddedPlayer/album=1587513513/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/transparent=true/" seamless><a href="https://killerbob.bandcamp.com/album/fear-may-be-a-builder">fear may be a builder by killer BOB</a></iframe>
+    <BR>  
+      <!-- Continue with other iframe content -->
+    </div>
+  </div>
 </body>
 </blockquote>
 </html>
