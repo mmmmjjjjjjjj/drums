@@ -100,11 +100,8 @@ class Element {
   }
 
   playGongSound() {
-    // Adjust pitch based on the size of the drawn element
     let pitch = map(this.size, minElementSize, maxElementSize, 1.5, 0.5);
     pitch = constrain(pitch, 0.5, 1.5);
-    
-    // Set the pitch and trigger the gong sound effect
     gongSound.rate(pitch);
     gongSound.amp(0.5);
     gongSound.play();
@@ -112,9 +109,15 @@ class Element {
 }
 
 function mousePressed() {
-  // Prevent element creation if the reset button was pressed
   if (!buttonPressed) {
-    // Create a new element at the mouse position when mouse is pressed
     elements.push(new Element(mouseX, mouseY));
   }
+}
+
+// Adding touch event support for mobile
+function touchStarted() {
+  if (!buttonPressed) {
+    elements.push(new Element(mouseX, mouseY));
+  }
+  return false; // Prevent default touch behavior
 }
