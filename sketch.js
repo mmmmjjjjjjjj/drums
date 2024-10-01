@@ -111,9 +111,20 @@ class Element {
   }
 }
 
+// Handle mouse interaction for creating new elements
 function mousePressed() {
-  // Check if the mouse press is on the canvas
+  // Check if the mouse press is on the canvas and not on a UI element
   if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height && !buttonPressed) {
+    console.log("Mouse pressed at:", mouseX, mouseY);
     elements.push(new Element(mouseX, mouseY));
+  }
+}
+
+// Handle touch interaction for creating new elements
+function touchStarted() {
+  // Check if the touch is on the canvas and not on a UI element
+  if (touchX >= 0 && touchX <= width && touchY >= 0 && touchY <= height && !buttonPressed) {
+    console.log("Touch started at:", touchX, touchY);
+    elements.push(new Element(touchX, touchY));
   }
 }
