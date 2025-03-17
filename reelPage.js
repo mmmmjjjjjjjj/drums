@@ -5,10 +5,10 @@ const minElementSize = 10;
 const maxElementSize = 50;
 let buttonPressed = false; // Flag to track button press
 
-// function preload() {
-//   // Load the gong sound effect
-//   gongSound = loadSound("assets/GONG.mp3");
-// }
+function preload() {
+  // Load the gong sound effect
+  gongSound = loadSound("assets/GONG.mp3");
+}
 
 function resetSketch() {
   background(random(50, 180), random(50, 180), 255);
@@ -88,27 +88,27 @@ class Element {
     ellipse(this.posX, this.posY, 2, 2);
   }
 
-//   checkEdges() {
-//     if (this.posX < 0 || this.posX > width) {
-//       this.dirX *= -1;
-//       this.playGongSound();
-//     }
-//     if (this.posY < 0 || this.posY > height) {
-//       this.dirY *= -1;
-//       this.playGongSound();
-//     }
-//   }
+  checkEdges() {
+    if (this.posX < 0 || this.posX > width) {
+      this.dirX *= -1;
+      this.playGongSound();
+    }
+    if (this.posY < 0 || this.posY > height) {
+      this.dirY *= -1;
+      this.playGongSound();
+    }
+  }
 
-//   playGongSound() {
-//     // Adjust pitch based on the size of the drawn element
-//     let pitch = map(this.size, minElementSize, maxElementSize, 1.5, 0.5);
-//     pitch = constrain(pitch, 0.5, 1.5);
+  playGongSound() {
+    // Adjust pitch based on the size of the drawn element
+    let pitch = map(this.size, minElementSize, maxElementSize, 1.5, 0.5);
+    pitch = constrain(pitch, 0.5, 1.5);
     
-//     // Set the pitch and trigger the gong sound effect
-//     gongSound.rate(pitch);
-//     gongSound.amp(0.0);
-//     gongSound.play();
-//   }
+    // Set the pitch and trigger the gong sound effect
+    gongSound.rate(pitch);
+    gongSound.amp(0.0);
+    gongSound.play();
+  }
 }
 
 // Handle mouse interaction for creating new elements
