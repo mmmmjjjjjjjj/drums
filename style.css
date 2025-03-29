@@ -1,0 +1,226 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: rgb(235, 235, 235);
+    font-family: 'ITC Avant Garde Gothic', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h3 {
+    font-style: italic;
+    font-size: x-large;
+    font-weight: 100;
+    margin-bottom: 1em;
+  }
+  p {
+    font-style: italic;
+    font-size: medium;
+    margin-bottom: 1em;
+    line-height: 1.5;
+  }
+  .left-nav {
+    width: 200px;
+    padding: 20px;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 1;
+  }
+  .left-nav h1 {
+    margin-bottom: 60px;
+    text-align: left;
+    width: 100%;
+  }
+  .left-nav a {
+    margin-bottom: 10px;
+    color: lavender;
+    text-decoration: none;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  .container {
+    padding: 20px;
+    flex: 1;
+    margin-left: 200px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: flex-start;
+  }
+  .profile-photo {
+    width: 80%;
+    max-width: 200px;
+    margin-bottom: 20px;
+    position: relative;
+    top: 0;
+    z-index: 2;
+  }
+  .scroll {
+    width: 100%;
+    margin: 0;
+    overflow-y: auto;
+    flex: 1;
+  }
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  nav {
+    margin-bottom: 20px;
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  nav a {
+    margin: 0 0 10px 0;
+    color: lavender;
+    text-decoration: none;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 768px) {
+    .left-nav {
+      width: 100px; /* Adjust this width as needed */
+      padding: 15px 5px; /* Adjust padding */
+      height: 100vh; /* Ensure it takes full height */
+      position: fixed; /* Keep it fixed */
+      top: 0;
+      left: 2em;
+      display: flex; /* Keep flex */
+      flex-direction: column; /* Keep column direction */
+      align-items: flex-start; /* Keep alignment */
+      background-color: transparent; /* Or set a background if needed */
+      /* REMOVE: width: 100%, position: relative, height: auto, flex-direction: row, align-items: left, justify-content: space-around, padding: 0px 0 */
+    }
+
+    .left-nav h1 {
+      margin-bottom: 30px; /* Reduce bottom margin */
+      text-align: left; /* Keep left align */
+      width: 100%;
+      font-size: 1.2em; /* Slightly smaller font size for title */
+    }
+
+    .left-nav nav {
+      flex-direction: column; /* Ensure nav items are stacked */
+      margin-bottom: 0; /* Reset margin if needed */
+      width: 100%; /* Ensure nav takes full width of the small sidebar */
+    }
+
+    .left-nav a {
+      margin: 0 0 8px 0; /* Adjust vertical spacing, remove horizontal */
+      font-size: 1em; /* Smaller font size for links */
+      /* Optionally add padding if needed for touch targets */
+      /* padding: 5px 0; */
+    }
+
+    .container {
+      margin-left: 100px; /* !!! IMPORTANT: Match the width of .left-nav !!! */
+      padding: 20px; /* Reset padding-top, keep original padding */
+      /* REMOVE: padding-top: 80px */
+    }
+    .profile-photo {
+      width: 50%;
+      max-width: 150px;
+      margin-bottom: 10px;
+    }
+    .scroll {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  /* Media query for screens smaller than 480px (typical for phones) */
+  @media screen and (max-width: 480px) {
+    .left-nav {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+    }
+    .left-nav nav {
+      flex-direction: column;
+    }
+    .left-nav a {
+      margin: 5px 0;
+    }
+    .container {
+      padding-top: 120px;
+    }
+    .profile-photo {
+      width: 80%;
+      max-width: 200px;
+      margin-bottom: 10px;
+    }
+
+  /* Styles for buttons */
+  .buttons-container {
+    position: fixed !important;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: black;
+    border-radius: 5px;
+  }
+  #content iframe {
+    display: block;       /* Ensures iframe behaves like a block, helps with sizing */
+    max-width: 100%;    /* Prevents iframe from exceeding container width */
+    width: 100%;        /* Makes iframe try to fill container width */
+    height: auto;       /* Allows height to adjust based on width */
+    border: 0;          /* Ensures no default border */
+    box-sizing: border-box; /* Includes padding/border in width calculation */
+    margin-bottom: 15px; /* Adds some space below each iframe */
+  }
+
+  /* --- Aspect Ratio for Videos (if you add YouTube/Vimeo etc.) --- */
+  /* Apply a class like "video-embed" to video iframes */
+  #content iframe.video-embed {
+     aspect-ratio: 16 / 9; /* Common 16:9 ratio, adjust if needed (e.g., 4/3) */
+     height: auto; /* Height is determined by width + aspect-ratio */
+  }
+
+  /* --- Specific Adjustments for Bandcamp (If Needed) --- */
+  /* Bandcamp embeds might need specific height adjustments if 'auto' doesn't look right */
+  #content iframe[src*="bandcamp.com"] {
+     /* Option 1: Try forcing a reasonable fixed height for mobile */
+      height: 300px;
+
+     /* Option 2: Let Bandcamp's internal styles try to control it (might work if inline height is removed) */
+     /* height: auto; */ /* (Already set above, but you could be more specific) */
+
+     /* Option 3: If using smaller Bandcamp embed sizes (not 'large'), height might be smaller */
+  }
+
+  /* --- Optional: Adjust Heading Sizes on Mobile --- */
+  #content h3 {
+      font-size: 1.1em; /* Make headings slightly smaller */
+      /* Add other adjustments like margin if needed */
+  }
+
+  /* --- If you CANNOT remove the wrapper div from HTML --- */
+  /* Target the specific wrapper div if it remains in music.html/video.html */
+  /* Only use this if you didn't remove the div/styles from the HTML files */
+  /* #content > div[style*="height:750px"] {
+       height: auto !important;
+       overflow-y: visible !important; /* Prevent internal scrolling */
+  /* } */ 
+  /* --- End Styles for Responsive Content --- */
+  };

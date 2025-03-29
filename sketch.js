@@ -4,6 +4,7 @@ const maxSpeed = 3;
 const minElementSize = 10;
 const maxElementSize = 50;
 let buttonPressed = false; // Flag to track button press
+let isMuted = false; // Flag for muting sound
 
 function preload() {
   // Load the gong sound effect
@@ -23,21 +24,30 @@ function setup() {
   resetSketch();
 
   let col = color(255, 255, 255);
-  let button = createButton("RESET SKETCH");
-  button.style('background-color', col);
-  button.style("font-family", "Helvetica");
-  button.position(window.innerWidth - 235, 5);
+  
+  // Create Reset Button
+  let resetButton = createButton("RESET SKETCH");
+  resetButton.style('background-color', col);
+  resetButton.style("font-family", "Helvetica");
+  resetButton.position(window.innerWidth - 235, 5);
+  resetButton.mousePressed(function (event) {
+    event.stopPropagation();
+    buttonPressed = true;
+    resetSketch();
+  });
 
-  // Prevent new element creation when the button is clicked
-  button.mousePressed(function (event) {
-    event.stopPropagation(); // Prevent mousePressed from firing
-    buttonPressed = true; // Set flag to true
-    resetSketch(); // Reset the sketch without creating a new element
+  // Create Mute Button
+  let muteButton = createButton("MUTE SOUND");
+  muteButton.style('background-color', col);
+  muteButton.style("font-family", "Helvetica");
+  muteButton.position(window.innerWidth - 350, 5);
+  muteButton.mousePressed(function () {
+    isMuted = !isMuted;
+    muteButton.html(isMuted ? "UNMUTE SOUND" : "MUTE SOUND");
   });
 }
 
 function draw() {
-  // Update and draw elements
   for (let i = elements.length - 1; i >= 0; i--) {
     elements[i].updateElement();
     elements[i].drawElement();
@@ -47,18 +57,6 @@ function draw() {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   resetSketch();
-  background(random(50, 180), random(50, 180), 255);
-
-  let col = color(255, 255, 255);
-  let button = createButton("RESET SKETCH");
-  button.style('background-color', col);
-  button.style("font-family", "Helvetica");
-  button.position(window.innerWidth - 235, 5);
-  button.mousePressed(function (event) {
-    event.stopPropagation(); // Prevent mousePressed from firing
-    buttonPressed = true; // Set flag to true
-    resetSketch(); // Reset the sketch without creating a new element
-  });
 }
 
 // Element class
@@ -100,11 +98,11 @@ class Element {
   }
 
   playGongSound() {
-    // Adjust pitch based on the size of the drawn element
-    let pitch = map(this.size, minElementSize, maxElementSize, 1.5, 0.5);
-    pitch = constrain(pitch, 0.5, 1.5);
+    if (isMuted) return; // Do not play sound if muted
+
+    let pitch = map(this.size, minElementSize, maxElementSize, 2.5, 0.5);
+    pitch = constrain(pitch, 0.5, 2.5);
     
-    // Set the pitch and trigger the gong sound effect
     gongSound.rate(pitch);
     gongSound.amp(0.5);
     gongSound.play();
@@ -113,18 +111,14 @@ class Element {
 
 // Handle mouse interaction for creating new elements
 function mousePressed() {
-  // Check if the mouse press is on the canvas and not on a UI element
   if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height && !buttonPressed) {
-    console.log("Mouse pressed at:", mouseX, mouseY);
     elements.push(new Element(mouseX, mouseY));
   }
 }
 
 // Handle touch interaction for creating new elements
 function touchStarted() {
-  // Check if the touch is on the canvas and not on a UI element
   if (touchX >= 0 && touchX <= width && touchY >= 0 && touchY <= height && !buttonPressed) {
-    console.log("Touch started at:", touchX, touchY);
     elements.push(new Element(touchX, touchY));
   }
 }
