@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  // Explicitly tell Vite to handle routing as a Single Page Application
-  appType: 'spa'
-
-  // You can add other Vite config options here later if needed
+  appType: 'spa',
+  build: {
+    // Add this line:
+    outDir: 'docs' // <--- Tell Vite to build into the 'docs' folder
+  }
+  // Make sure commas are correct if other options exist
 });
