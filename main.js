@@ -224,7 +224,7 @@ const sketch = (p) => { // 'p' is the p5 instance
             this.dirX = p.random(-1, 1) * maxSpeed;
             this.dirY = p.random(-1, 1) * maxSpeed;
             this.size = p.random(minElementSize, maxElementSize);
-            this.R = p.random(105);
+            this.R = p.random(255);
             this.G = p.random(255);
             while (this.dirX === 0 && this.dirY === 0) {
                  this.dirX = p.random(-1, 1) * maxSpeed;
