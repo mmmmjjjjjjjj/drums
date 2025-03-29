@@ -87,6 +87,22 @@ body {
     font-size: 1.2em;
     cursor: pointer;
   }
+  #content a {
+    color: yellow; /* Or gold, #FFEB3B, etc. */
+    /* You might want to add an underline too, if desired */
+    /* text-decoration: underline; */
+  }
+  #content a:visited {
+    /* Make visited links yellow too, otherwise they might turn purple */
+    color: yellow;
+  }
+  
+  #content a:hover {
+    /* Example: Make links turn white on hover */
+    color: white;
+    /* Or maybe a slightly different yellow */
+    /* color: #FFFACD; */ /* Lemon Chiffon */
+  }
 
   @media screen and (max-width: 768px) {
     .left-nav {
