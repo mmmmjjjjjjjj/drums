@@ -1,6 +1,6 @@
 body {
-    margin: 0;
-    padding: 0;
+    margin: 10px;
+    padding: 10px;
     color: rgb(235, 235, 235);
     font-family: 'ITC Avant Garde Gothic', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     display: flex;
@@ -9,13 +9,13 @@ body {
   }
   h3 {
     font-style: italic;
-    font-size: x-large;
+    font-size: larger;
     font-weight: 100;
     margin-bottom: 1em;
   }
   p {
     font-style: italic;
-    font-size: medium;
+    font-size: smaller;
     margin-bottom: 1em;
     line-height: 1.5;
   }
@@ -51,6 +51,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     align-items: flex-start;
+    margin-bottom: 100px;
   }
   .profile-photo {
     width: 80%;
@@ -310,3 +311,127 @@ body {
   /* } */ 
   /* --- End Styles for Responsive Content --- */
   }
+  .gallery-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.gallery img {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+.gallery-nav {
+    text-align: center;
+    margin-bottom: 20px;
+}
+/* --- Slideshow Styling --- */
+.slideshow-container {
+  max-width: 800px; /* Adjust max width as desired */
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Style the main images */
+.mySlides img {
+  vertical-align: middle;
+  /* Consider removing inline style="width:100%" from HTML and control width here if needed */
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgba(0,0,0,0.3); /* Semi-transparent background */
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.caption-text {
+  color: #f2f2f2;
+  font-size: 12px; /* Smaller caption */
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0,0,0,0.5); /* Semi-transparent caption background */
+  box-sizing: border-box;
+}
+
+/* Number text (1/7 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+
+/* Thumbnail row and columns */
+.thumbnail-row {
+    text-align: center; /* Center thumbnails */
+    margin-top: 15px;
+}
+.thumbnail-column {
+  display: inline-block; /* Align horizontally */
+  width: calc(100% / 7 - 10px); /* Divide width by number of images, adjust spacing */
+  max-width: 100px; /* Max width for thumbnails */
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+/* Style the thumbnail images */
+.demo {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+/* Add a fade animation (optional) */
+.fade {
+  animation-name: fade;
+  animation-duration: 0.5s; /* Shorter fade */
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}

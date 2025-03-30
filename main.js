@@ -30,7 +30,10 @@ function loadPage(pageName) { // Receives 'about', 'music' etc.
                                         console.log("Attempting to display shows after short delay (from loadPage)...");
                                         displayShows(); // Call the function to fetch and display calendar data
                                     }, 0); // Delay of 0ms
-                                }
+                                } else if (pageName === 'gallery') { // <-- ADD THIS ELSE IF
+                                    setTimeout(() => initGallery(), 0);
+                            }
+    
                                 // --- End check ---
 
                 // Update history state with the HASH
@@ -49,7 +52,74 @@ function loadPage(pageName) { // Receives 'about', 'music' etc.
             });
     }, 300);
 } // End of loadPage
+
 // Add this function somewhere in main.js (outside the sketch function)
+// --- Slideshow Logic ---
+let slideIndex = 1; // Keep track of current slide
+
+// Function called only when gallery page loads
+function initGallery() {
+    console.log("Initializing Gallery");
+    slideIndex = 1; // Reset to first slide
+    showSlides(slideIndex);
+
+    // Attach functions to window scope so onclick attributes can find them
+    window.plusSlides = plusSlides;
+    window.currentSlide = currentSlide;
+
+    // We could add event listeners here instead of using onclick in HTML,
+    // but onclick is simpler to get working initially.
+}
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  console.log(`Showing slide: ${n}`);
+  let i;
+  // Important: Select elements *after* they've been loaded into #content
+  let slides = document.querySelectorAll("#content .mySlides");
+  let dots = document.querySelectorAll("#content .demo");
+
+  if (!slides || slides.length === 0) {
+      console.error("Slideshow elements not found in #content");
+      return; // Exit if elements aren't ready/found
+  }
+
+  if (n > slides.length) {slideIndex = 1} // Wrap around to start
+  if (n < 1) {slideIndex = slides.length} // Wrap around to end
+
+  // Hide all slides
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+
+  // Remove active class from all thumbnails
+  for (i = 0; i < dots.length; i++) {
+    dots[i].classList.remove("active");
+  }
+
+  // Display the current slide and activate the corresponding thumbnail
+  slides[slideIndex-1].style.display = "block";
+  if (dots[slideIndex-1]) { // Check if dot exists
+      dots[slideIndex-1].classList.add("active");
+  } else {
+      console.warn(`Thumbnail dot ${slideIndex-1} not found.`);
+  }
+  // Caption functionality was removed from HTML example, but could be added back here
+  // let captionText = document.getElementById("caption");
+  // if (captionText && dots[slideIndex-1]) {
+  //   captionText.innerHTML = dots[slideIndex-1].alt;
+  // }
+}
+// --- End Slideshow Logic ---
 
 async function displayShows() {
     const apiKey = 'AIzaSyBTDKsrV7Vjiago93e78g0xkk_GkHj7o3Y'; // <-- PASTE YOUR GOOGLE API KEY HERE!
@@ -153,6 +223,7 @@ async function displayShows() {
         showsListDiv.innerHTML = `<p style="color: red;">Could not load shows. ${error.message}</p>`;
     }
 }
+
 // --- End Google Calendar API Function ---
 
 window.loadPage = loadPage; // <-- ADD THIS LINE
@@ -214,6 +285,9 @@ window.onload = function () {
                 // --- ADD THIS CHECK ---
                 if (pageName === 'shows') {
                     displayShows(); // Call the function to fetch and display calendar data
+                } else if (pageName === 'gallery') { // <-- ADD THIS ELSE IF
+                    setTimeout(() => initGallery(), 0);
+                
                 }
                 // --- END ADDED CHECK ---
 
