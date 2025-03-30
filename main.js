@@ -22,6 +22,17 @@ function loadPage(pageName) { // Receives 'about', 'music' etc.
             })
             .then(html => {
                 content.innerHTML = html;
+
+                                // --- Check if 'shows' page loaded ---
+                                if (pageName === 'shows') {
+                                    // Use setTimeout to ensure the new DOM is ready
+                                    setTimeout(() => {
+                                        console.log("Attempting to display shows after short delay (from loadPage)...");
+                                        displayShows(); // Call the function to fetch and display calendar data
+                                    }, 0); // Delay of 0ms
+                                }
+                                // --- End check ---
+
                 // Update history state with the HASH
                 if (window.location.hash !== targetHash) {
                    history.pushState(null, "", targetHash); // Set the new hash
@@ -38,6 +49,114 @@ function loadPage(pageName) { // Receives 'about', 'music' etc.
             });
     }, 300);
 } // End of loadPage
+// Add this function somewhere in main.js (outside the sketch function)
+
+async function displayShows() {
+    const apiKey = 'AIzaSyBTDKsrV7Vjiago93e78g0xkk_GkHj7o3Y'; // <-- PASTE YOUR GOOGLE API KEY HERE!
+    const calendarId = 'u9e1t8pbgdq10e7tdmcn80l398@group.calendar.google.com'; // <-- PASTE YOUR CALENDAR ID HERE!
+    const showsListDiv = document.getElementById('shows-list');
+
+    if (!showsListDiv) {
+        console.error('Show list container not found.');
+        // Optional: Add message to UI if needed
+        // document.getElementById('content').innerHTML += '<p style="color:orange;">Show list container missing in HTML.</p>';
+        return;
+    }
+    // Check for actual key/ID, not placeholders (your previous check was comparing against the actual values)
+    if (!apiKey || apiKey === 'YOUR_API_KEY' || !calendarId || calendarId === 'YOUR_CALENDAR_ID') {
+         showsListDiv.innerHTML = '<p style="color: red;">Error: API Key or Calendar ID not correctly set in main.js</p>';
+         console.error('API Key or Calendar ID missing or still placeholder.');
+         return;
+    }
+
+    // --- API Request Parameters ---
+    const timeMin = new Date().toISOString(); // Get events starting from now
+    const maxResults = 20; // Max number of shows to display
+    const orderBy = 'startTime';
+    const singleEvents = 'true';
+    // Select only the fields we need to reduce data transfer
+    const fields = 'items(summary,location,start,end,description)';
+
+    // Construct the API URL
+    const apiUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${timeMin}&orderBy=${orderBy}&singleEvents=${singleEvents}&maxResults=${maxResults}&fields=${fields}`;
+
+    console.log("Fetching Calendar events...");
+
+    showsListDiv.innerHTML = '<p>Loading shows...</p>'; // Show loading message
+
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            // Attempt to read error message from Google API response
+            let errorData;
+            try { errorData = await response.json(); } catch (e) { /* ignore if response not json */ }
+            let message = `Google Calendar API Error: ${response.status} ${response.statusText}`;
+            if (errorData && errorData.error && errorData.error.message) {
+                message += ` - ${errorData.error.message}`;
+            }
+            throw new Error(message);
+        }
+        const data = await response.json();
+        console.log("Calendar data received:", data);
+
+        if (data.items && data.items.length > 0) {
+            let htmlContent = '<ul>';
+            data.items.forEach(event => {
+                const startDate = event.start.dateTime ? new Date(event.start.dateTime) : new Date(event.start.date + 'T00:00:00');
+                const optionsDate = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+                const optionsTime = { hour: 'numeric', minute: 'numeric', timeZoneName: 'short' };
+                const formattedDate = startDate.toLocaleDateString('en-US', optionsDate);
+                let formattedTime = '';
+                 if (event.start.dateTime) {
+                     formattedTime = startDate.toLocaleTimeString('en-US', optionsTime);
+                 }
+                const summary = event.summary || 'No Title';
+                const location = event.location || '';
+
+                const description = event.description || ''; // Get the description text
+                let eventUrl = null;
+
+                if (description) {
+                    // Simple regex to find the first http:// or https:// URL in the description
+                    const urlRegex = /(https?:\/\/[^\s]+)/;
+                    const foundUrls = description.match(urlRegex);
+                    if (foundUrls && foundUrls.length > 0) {
+                        eventUrl = foundUrls[0]; // Grab the first URL found
+                        console.log(`Found URL for event "${summary}": ${eventUrl}`);
+                    }
+                }
+                
+                htmlContent += `<li class="show-item">`;
+                htmlContent += `<div class="show-date">${formattedDate}</div>`;
+                 if (formattedTime) {
+                     htmlContent += `<div class="show-time">${formattedTime}</div>`;
+                 }
+                 htmlContent += `<div class="show-summary">${summary}</div>`;
+                 if (location) {
+                     htmlContent += `<div class="show-location">${location}</div>`;
+                 }
+                 if (eventUrl) {
+                    // Add a link - target="_blank" opens in new tab
+                    // rel="noopener noreferrer" is good practice for security/privacy
+                    htmlContent += `<div class="show-link">Tickets / Info: <a href=${eventUrl} </a></div>`;
+                }
+
+                htmlContent += `</li>`;
+            });
+            htmlContent += '</ul>';
+            showsListDiv.innerHTML = htmlContent;
+
+        } else {
+            showsListDiv.innerHTML = '<p>No upcoming shows scheduled.</p>';
+        }
+
+    } catch (error) {
+        console.error('Failed to fetch or display shows:', error);
+        showsListDiv.innerHTML = `<p style="color: red;">Could not load shows. ${error.message}</p>`;
+    }
+}
+// --- End Google Calendar API Function ---
 
 window.loadPage = loadPage; // <-- ADD THIS LINE
 
@@ -94,6 +213,13 @@ window.onload = function () {
                 content.innerHTML = html;
                 content.style.opacity = "1";
                 console.log('innerHTML set.');
+
+                // --- ADD THIS CHECK ---
+                if (pageName === 'shows') {
+                    displayShows(); // Call the function to fetch and display calendar data
+                }
+                // --- END ADDED CHECK ---
+
                 // History was already set by replaceState earlier
             } else { console.error("#content not found"); }
         })

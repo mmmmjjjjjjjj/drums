@@ -104,6 +104,69 @@ body {
     /* color: #FFFACD; */ /* Lemon Chiffon */
   }
 
+
+
+/* --- Example Shows List Styling --- */
+#shows-list ul {
+  list-style: none; /* Remove default bullets */
+  padding: 0;
+}
+
+.show-item {
+  border-bottom: 1px solid rgba(235, 235, 235, 0.3); /* Light separator line */
+  margin-bottom: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+.show-item:last-child {
+  border-bottom: none; /* No line after the last item */
+  margin-bottom: 0;
+}
+
+.show-date {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 0.2em;
+}
+
+.show-time {
+  font-size: 0.9em;
+  font-style: normal; /* Override potential italic inheritance */
+  color: rgba(235, 235, 235, 0.8); /* Slightly dimmer */
+  margin-bottom: 0.5em;
+}
+
+.show-summary {
+  font-size: 1.2em; /* Make title stand out */
+  font-style: normal;
+  margin-bottom: 0.3em;
+   color: lavender; /* Example color */
+}
+
+.show-location {
+  font-size: 1em;
+  font-style: normal;
+}
+/* Styling for the event link */
+.show-link {
+  margin-top: 0.5em; /* Add some space above the link */
+}
+
+#content .show-link a { /* Target links specifically within show-link inside #content */
+  color: gold; /* Or yellow, or another color */
+  text-decoration: underline;
+  font-style: normal; /* Override italic if needed */
+  font-size: 0.9em;
+}
+
+#content .show-link a:visited {
+  color: gold; /* Keep visited link same color */
+}
+
+#content .show-link a:hover {
+  color: white; /* Example hover */
+}
+
   @media screen and (max-width: 768px) {
     .left-nav {
       width: 100px; /* Adjust this width as needed */
@@ -177,6 +240,13 @@ body {
       margin-bottom: 10px;
     }
 
+    #shows-list {
+      /* Maybe add some padding? */
+      padding: 10px
+    }
+  .show-summary {
+      font-size: 1.1em;
+    }
   /* Styles for buttons */
   .buttons-container {
     position: fixed !important;
