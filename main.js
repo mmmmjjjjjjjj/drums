@@ -118,14 +118,13 @@ async function displayShows() {
                 let eventUrl = null;
 
                 if (description) {
-                    // Simple regex to find the first http:// or https:// URL in the description
-                    const urlRegex = /(https?:\/\/[^\s]+)/;
+                    const urlRegex = /(https?:\/\/[^\s"]+)/; // Avoid capturing quotes
                     const foundUrls = description.match(urlRegex);
-                    if (foundUrls && foundUrls.length > 0) {
-                        eventUrl = foundUrls[0]; // Grab the first URL found
-                        console.log(`Found URL for event "${summary}": ${eventUrl}`);
+                    if (foundUrls) {
+                        eventUrl = foundUrls[0].trim(); // Trim any excess whitespace
                     }
                 }
+                
                 
                 htmlContent += `<li class="show-item">`;
                 htmlContent += `<div class="show-date">${formattedDate}</div>`;
@@ -137,9 +136,7 @@ async function displayShows() {
                      htmlContent += `<div class="show-location">${location}</div>`;
                  }
                  if (eventUrl) {
-                    // Add a link - target="_blank" opens in new tab
-                    // rel="noopener noreferrer" is good practice for security/privacy
-                    htmlContent += `<div class="show-link">Tickets / Info: <a href=${eventUrl}  </a></div>`;
+                    htmlContent += `<div class="show-link"><a href="${eventUrl}" target="_blank" rel="noopener noreferrer">Tickets / Info</a></div>`;
                 }
 
                 htmlContent += `</li>`;
