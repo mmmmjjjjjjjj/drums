@@ -139,7 +139,7 @@ async function displayShows() {
                  if (eventUrl) {
                     // Add a link - target="_blank" opens in new tab
                     // rel="noopener noreferrer" is good practice for security/privacy
-                    htmlContent += `<div class="show-link">Tickets / Info: <a href=${eventUrl} </a></div>`;
+                    htmlContent += `<div class="show-link">Tickets / Info: <a href=${eventUrl}  </a></div>`;
                 }
 
                 htmlContent += `</li>`;
