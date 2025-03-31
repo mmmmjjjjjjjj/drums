@@ -55,7 +55,7 @@ html, body {
     cursor: pointer;
   }
   .container {
-    padding: 20px;
+    padding: 10px;
     flex: 1;
     margin-left: 200px;
     display: flex;
@@ -262,7 +262,7 @@ html, body {
       margin: 5px 0;
     }
     .container {
-      padding-top: 10px;
+      padding-top: 30px;
       margin-bottom: 100px;
     }
         /* Further reduce font size for content paragraphs */
@@ -273,6 +273,8 @@ html, body {
   /* Optionally adjust content headings */
   #content h3 {
       font-size: 1.1rem;
+      
+      margin-right: 25px;
   }
     .profile-photo {
       width: 80%;
