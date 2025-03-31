@@ -230,7 +230,7 @@ html, body {
     .container {
       margin-left: 120px; /* !!! IMPORTANT: Match the width of .left-nav !!! */
     
-      padding: 20px; /* Reset padding-top, keep original padding */
+      padding: 0px; /* Reset padding-top, keep original padding */
       /* REMOVE: padding-top: 80px */
     }
     .profile-photo {
@@ -246,7 +246,7 @@ html, body {
   #content p {
     font-size: 0.9rem; /* Use rem or em, slightly smaller */
     line-height: 1.4; /* Adjust line spacing */
-    margin-bottom: 0.8em;
+    margin-bottom: 0.5em;
   }
   /* Media query for screens smaller than 480px (typical for phones) */
   @media screen and (max-width: 480px) {
@@ -263,7 +263,7 @@ html, body {
     }
     .container {
       padding-top: 30px;
-      margin-bottom: 100px;
+      margin-bottom: 10px;
     }
         /* Further reduce font size for content paragraphs */
   #content p {
@@ -274,7 +274,7 @@ html, body {
   #content h3 {
       font-size: 1.1rem;
       
-      margin-right: 25px;
+      margin-right: 120px;
   }
     .profile-photo {
       width: 80%;
