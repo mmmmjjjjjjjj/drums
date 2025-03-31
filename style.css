@@ -1,14 +1,19 @@
-body {
+html, body {
+  height: 100%; /* Make body take full viewport height */
+  overflow: hidden; /* Prevent the whole page body from scrolling */
+  margin: 0; /* Reset default body margin */
+  padding: 0; /* Reset default body padding */
+}body {
     margin: 10px;
     padding: 10px;
     color: rgb(235, 235, 235);
-    font-family: 'ITC Avant Garde Gothic', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'ITC Avant Garde Gothic', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   h3 {
-    font-style: italic;
+    font-style:normal;
     font-size: larger;
     font-weight: 100;
     margin-bottom: 1em;
@@ -20,7 +25,7 @@ body {
     line-height: 1.5;
   }
   .left-nav {
-    width: 200px;
+    width: 120px;
     padding: 20px;
     height: auto;
     position: fixed;
@@ -35,12 +40,18 @@ body {
     margin-bottom: 60px;
     text-align: left;
     width: 100%;
+    font-size: 2.5em; /* <-- Increased size */
+    font-family: Times, Georgia, serif;
+    font-weight: bold; /* <-- Added bold */
+    letter-spacing: 1px; /* <-- Added slight spacing */
+    font-style: italic;
   }
   .left-nav a {
     margin-bottom: 10px;
     color: lavender;
     text-decoration: none;
     font-size: 1.2em;
+    font-style: italic;
     cursor: pointer;
   }
   .container {
@@ -49,9 +60,10 @@ body {
     margin-left: 200px;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    align-items: flex-start;
-    margin-bottom: 100px;
+    height: 100vh;
+    box-sizing: border-box;
+    /* align-items: flex-start;
+    margin-bottom: 100px; */
   }
   .profile-photo {
     width: 80%;
@@ -61,12 +73,12 @@ body {
     top: 0;
     z-index: 2;
   }
-  .scroll {
+  /* .scroll {
     width: 100%;
     margin: 0;
     overflow-y: auto;
     flex: 1;
-  }
+  } */
   canvas {
     position: fixed;
     top: 0;
@@ -87,6 +99,17 @@ body {
     text-decoration: none;
     font-size: 1.2em;
     cursor: pointer;
+  }
+  #content {
+    width: 100%; /* Fill container width */
+    flex: 1; /* Take up available vertical space in the flex container */
+    overflow-y: auto; /* Add vertical scrollbar ONLY if content overflows */
+    padding: 10px; /* Add some internal padding */
+    padding-bottom: 50px; /* Extra space at the bottom */
+    box-sizing: border-box;
+    /* Ensure opacity/transition are here if needed for loadPage */
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
   }
   #content a {
     color: yellow; /* Or gold, #FFEB3B, etc. */
@@ -111,6 +134,7 @@ body {
 #shows-list ul {
   list-style: none; /* Remove default bullets */
   padding: 0;
+  margin-left: 100px;
 }
 
 .show-item {
@@ -170,7 +194,7 @@ body {
 
   @media screen and (max-width: 768px) {
     .left-nav {
-      width: 100px; /* Adjust this width as needed */
+      width: 120px; /* Adjust this width as needed */
       padding: 15px 5px; /* Adjust padding */
       height: 100vh; /* Ensure it takes full height */
       position: fixed; /* Keep it fixed */
@@ -187,7 +211,7 @@ body {
       margin-bottom: 30px; /* Reduce bottom margin */
       text-align: left; /* Keep left align */
       width: 100%;
-      font-size: 1.2em; /* Slightly smaller font size for title */
+      font-size: 1.8em; /* Slightly smaller font size for title */
     }
 
     .left-nav nav {
@@ -204,21 +228,26 @@ body {
     }
 
     .container {
-      margin-left: 100px; /* !!! IMPORTANT: Match the width of .left-nav !!! */
+      margin-left: 120px; /* !!! IMPORTANT: Match the width of .left-nav !!! */
+    
       padding: 20px; /* Reset padding-top, keep original padding */
       /* REMOVE: padding-top: 80px */
     }
     .profile-photo {
       width: 50%;
       max-width: 150px;
-      margin-bottom: 10px;
+      margin-bottom: 100px;
     }
     .scroll {
       width: 100%;
       margin: 0;
     }
   }
-
+  #content p {
+    font-size: 0.9rem; /* Use rem or em, slightly smaller */
+    line-height: 1.4; /* Adjust line spacing */
+    margin-bottom: 0.8em;
+  }
   /* Media query for screens smaller than 480px (typical for phones) */
   @media screen and (max-width: 480px) {
     .left-nav {
@@ -233,8 +262,18 @@ body {
       margin: 5px 0;
     }
     .container {
-      padding-top: 120px;
+      padding-top: 10px;
+      margin-bottom: 100px;
     }
+        /* Further reduce font size for content paragraphs */
+  #content p {
+    font-size: 0.85rem; /* Even smaller */
+    line-height: 1.35;
+  }
+  /* Optionally adjust content headings */
+  #content h3 {
+      font-size: 1.1rem;
+  }
     .profile-photo {
       width: 80%;
       max-width: 200px;

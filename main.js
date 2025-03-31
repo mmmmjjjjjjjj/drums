@@ -394,7 +394,7 @@ const sketch = (p) => { // 'p' is the p5 instance
                 if (reverb) {
                    gongSound.disconnect(); // Ensure clean state
                    try {
-                       reverb.process(gongSound, soundData.decayTime, 0.35); // Apply reverb
+                       reverb.process(gongSound, soundData.decayTime, 1); // Apply reverb
                    } catch (e) { console.error("Reverb process failed", e); }
                 } else {
                     console.warn("Reverb not initialized for sound playback");
@@ -474,7 +474,7 @@ const sketch = (p) => { // 'p' is the p5 instance
             // Reverb logic might need adjustment with instance mode
             if (reverb) {
                 try {
-                    // reverb.set(decayTime, 0.35); // Use process instead?
+                    reverb.set(decayTime, 0.35); // Use process instead?
                 } catch(e) { console.error("Failed to set reverb", e)}
             }
 
