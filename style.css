@@ -289,6 +289,9 @@ html, body {
   .show-summary {
       font-size: 1.1em;
     }
+  .show-desc { margin-top: 0.35rem; font-size: 0.95rem; line-height: 1.45; }
+
+  .show-desc a { text-decoration: underline; }
   /* Styles for buttons */
   .buttons-container {
     position: fixed !important;
