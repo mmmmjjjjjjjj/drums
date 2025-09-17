@@ -1,3 +1,4 @@
+console.log("✅ main.js v6 loaded");
 // --- Global variables needed by routing (if any - currently none seem needed here) ---
 
 // --- Routing Logic (Stays outside the p5 sketch) ---
