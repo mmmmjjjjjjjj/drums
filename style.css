@@ -284,7 +284,9 @@ html, body {
 
     #shows-list {
       /* Maybe add some padding? */
-      padding: 10px
+        list-style: none;   /* hide bullets */
+  margin: 0;
+  padding-left: 0;
     }
   .show-summary {
       font-size: 1.1em;
