@@ -1,4 +1,4 @@
-console.log("✅ main.js v7 loaded");
+console.log("✅ main.js v7.1 loaded");
 
 // ──────────────────────────────────────────────────────────────
 // Routing (outside p5)
@@ -22,7 +22,6 @@ function loadPage(pageName) {
       .then(html => {
         content.innerHTML = html;
 
-        // shows / gallery hooks
         if (pageName === 'shows') {
           setTimeout(() => {
             console.log("Attempting to display shows after short delay (from loadPage)...");
@@ -81,36 +80,39 @@ function showSlides(n) {
 }
 
 // ──────────────────────────────────────────────────────────────
-/** Description rendering helpers (safe)
- * - Plain text: escape + linkify + \n → <br>
- * - HTML/encoded: decode, allow only <a> and <br>, strip other tags
- */
+// Description helpers
+// - Goal: keep all description text, but strip any links from it.
+// - We still show the first link separately as a "Tickets / Info" button.
+// ──────────────────────────────────────────────────────────────
 const htmlEscape = (s='') =>
   s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
-const linkifyPlain = (text='') =>
-  text.replace(/((https?:\/\/|www\.)[^\s<]+)/gi, m => {
-    const href = m.startsWith('http') ? m : `https://${m}`;
-    return `<a href="${href}" target="_blank" rel="noopener noreferrer">${htmlEscape(m)}</a>`;
-  });
-
 const decodeEntities = (s='') => { const t=document.createElement('textarea'); t.innerHTML=s; return t.value; };
 
-// Extract first url for the "Tickets / Info" button (from <a href> or raw URL)
+// Extract first URL (from <a href="..."> OR raw http/https/www URL)
 const getFirstUrl = (raw='') => {
   const decoded = decodeEntities(raw);
   const mTag = decoded.match(/<a[^>]+href="([^"]+)"/i);
-  if (mTag && /^(https?:|mailto:)/i.test(mTag[1])) return mTag[1];
-  const m = decoded.match(/https?:\/\/[^\s"<]+/i);
-  return m ? m[0] : null;
+  let url = mTag?.[1];
+  if (!url) {
+    const m = decoded.match(/(?:https?:\/\/|www\.)[^\s"<]+/i);
+    if (m) url = m[0].startsWith('http') ? m[0] : `https://${m[0]}`;
+  }
+  return (url && /^(https?:|mailto:)/i.test(url)) ? url : null;
 };
 
-const renderDesc = (desc='') => {
+// Render description but REMOVE links (keep other text + <br>)
+const renderDescNoLinks = (desc='') => {
   if (!desc) return '';
   const looksHtmlish = /(&lt;|&gt;|<\/?[a-z][\s\S]*>)/i.test(desc);
+
+  // Plain text containing raw URLs: strip URLs, keep text + newlines
   if (!looksHtmlish) {
-    return linkifyPlain(htmlEscape(desc)).replace(/\r?\n/g, '<br>');
+    const withoutUrls = desc.replace(/(?:https?:\/\/|www\.)[^\s<]+/gi, '');
+    return htmlEscape(withoutUrls).replace(/\r?\n/g, '<br>');
   }
+
+  // Encoded/HTML: decode, drop <a> (including its visible text), keep <br> + other text
   const decoded = decodeEntities(desc);
   const doc = new DOMParser().parseFromString(decoded, 'text/html');
 
@@ -121,18 +123,13 @@ const renderDesc = (desc='') => {
         out += htmlEscape(ch.nodeValue);
       } else if (ch.nodeType === Node.ELEMENT_NODE) {
         const tag = ch.tagName.toLowerCase();
-        if (tag === 'br') {
-          out += '<br>';
-        } else if (tag === 'a') {
-          const href = ch.getAttribute('href') || '';
-          const txt  = ch.textContent || href;
-          if (/^(https?:|mailto:)/i.test(href)) {
-            out += `<a href="${href}" target="_blank" rel="noopener noreferrer">${htmlEscape(txt)}</a>`;
-          } else {
-            out += htmlEscape(txt);
-          }
+        if (tag === 'br') out += '<br>';
+        else if (tag === 'a') {
+          // drop the link entirely (including anchor text)
+          // If you prefer to keep the visible words, use:
+          // out += htmlEscape(ch.textContent || '');
         } else {
-          out += walk(ch); // strip other tags but keep their text
+          out += walk(ch);
         }
       }
     });
@@ -141,7 +138,6 @@ const renderDesc = (desc='') => {
 
   return walk(doc.body).replace(/\r?\n/g, '<br>');
 };
-// ──────────────────────────────────────────────────────────────
 
 // ──────────────────────────────────────────────────────────────
 // Google Calendar - Shows page
@@ -165,7 +161,6 @@ async function displayShows() {
     orderBy: 'startTime',
     singleEvents: 'true',
     maxResults: '20',
-    // make sure description is included
     fields: 'items(summary,location,start,end,description),nextPageToken'
   });
 
@@ -211,10 +206,12 @@ async function displayShows() {
       htmlContent += `<div class="show-summary">${summary}</div>`;
       if (location) htmlContent += `<div class="show-location">${htmlEscape(location)}</div>`;
 
+      // keep description but strip any links from it
       if (rawDesc) {
-        htmlContent += `<div class="show-desc">${renderDesc(rawDesc)}</div>`;
+        htmlContent += `<div class="show-desc">${renderDescNoLinks(rawDesc)}</div>`;
       }
 
+      // put the first link in a clean button
       if (eventUrl) {
         htmlContent += `<div class="show-link"><a href="${eventUrl}" target="_blank" rel="noopener noreferrer">Tickets / Info</a></div>`;
       }
