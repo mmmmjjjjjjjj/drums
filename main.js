@@ -286,6 +286,10 @@ window.onload = function () {
 // ──────────────────────────────────────────────────────────────
 // p5 sketch
 // ──────────────────────────────────────────────────────────────
+// ──────────────────────────────────────────────────────────────
+// p5 sketch (instance mode) - GREYSCALE + inverse text color
+// Replace your existing `const sketch = (p) => { ... }` block with this
+// ──────────────────────────────────────────────────────────────
 const sketch = (p) => {
   let gongSound;
   let elements = [];
@@ -300,32 +304,63 @@ const sketch = (p) => {
     console.log("preload() called");
     gongSound = p.loadSound(
       "/assets/GONG.mp3",
-      () => { console.log("GONG.mp3 loaded successfully"); },
+      () => { console.log("GONG.mp3 loaded"); },
       (err) => { console.error("Error loading GONG.mp3:", err); }
     );
   };
 
+  // updateSiteTextColor(inverseGray)
+  // Apply inverse greyscale color to relevant DOM elements
+  function updateSiteTextColor(inverseGray) {
+    const colorStr = `rgb(${inverseGray}, ${inverseGray}, ${inverseGray})`;
+    // target elements inside #content + global nav / links as desired
+    const selectors = [
+      '#content',
+      '#content p',
+      '#content h1', '#content h2', '#content h3',
+      '#content a', '#content li', '.left-nav a'
+    ];
+    selectors.forEach(sel => {
+      document.querySelectorAll(sel).forEach(el => {
+        el.style.color = colorStr;
+      });
+    });
+  }
+
+  // resetSketch: sets greyscale background and updates text color
   const resetSketch = () => {
-    p.background(p.random(0, 255), 0, p.random(0, 255));
+    // choose a greyscale background value 0-255 (use full range)
+    const g = Math.floor(p.random(0, 255));
+    p.background(g); // greyscale background
+
+    // set stroke/fill defaults for drawing
     p.stroke(255);
     p.fill(0);
+
+    // clear elements and reset audio/reverb queue
     elements = [];
     if (reverb) {
-      if (gongSound && gongSound.isLoaded()) { gongSound.disconnect(); }
-      reverb.disconnect();
+      try { reverb.disconnect(); } catch(e) {}
     }
-    try { reverb = new p5.Reverb(); } catch (e) { console.error("Failed to create Reverb, sound might be disabled.", e); }
+    try { reverb = new p5.Reverb(); } catch (e) { reverb = null; }
+
     soundQueue = [];
+
+    // compute inverse greyscale for text (0..255)
+    const inverse = 255 - g;
+    updateSiteTextColor(inverse);
+
+    // also adjust any top-level body / nav color if you want:
+    document.body.style.color = `rgb(${inverse},${inverse},${inverse})`;
   };
 
   p.setup = () => {
-    console.log("setup() called");
     p.createCanvas(p.windowWidth, p.windowHeight);
-    console.log("Canvas created. Size:", p.width, "x", p.height, "WinSize:", p.windowWidth, "x", p.windowHeight);
     resetSketch();
 
-    const muteButton = p.select("#muteButton");
-    const resetButton = p.select("#resetButton");
+    // wire up mute/reset buttons if they exist in DOM
+    const muteButton = p.select('#muteButton');
+    const resetButton = p.select('#resetButton');
 
     if (muteButton) {
       muteButton.mousePressed(() => {
@@ -336,14 +371,21 @@ const sketch = (p) => {
           soundQueue = [];
         }
       });
-    } else { console.error("Mute button not found"); }
+    } else {
+      console.warn("muteButton not found");
+    }
 
     if (resetButton) {
-      resetButton.mousePressed(() => { resetSketch(); });
-    } else { console.error("Reset button not found"); }
+      resetButton.mousePressed(() => {
+        resetSketch();
+      });
+    } else {
+      console.warn("resetButton not found");
+    }
   };
 
   p.draw = () => {
+    // update + draw elements
     for (let i = elements.length - 1; i >= 0; i--) {
       if (elements[i]) {
         elements[i].updateElement();
@@ -351,13 +393,15 @@ const sketch = (p) => {
       }
     }
 
+    // sound queue manager
     if (soundQueue.length > 0 && gongSound && gongSound.isLoaded()) {
       if (!gongSound.isPlaying()) {
         const soundData = soundQueue.shift();
         if (reverb) {
-          gongSound.disconnect();
-          try { reverb.process(gongSound, soundData.decayTime, 1); } catch (e) { console.error("Reverb process failed", e); }
-        } else { console.warn("Reverb not initialized for sound playback"); }
+          try {
+            reverb.process(gongSound, soundData.decayTime, 0.35);
+          } catch (e) { console.error("Reverb process failed", e); }
+        }
         gongSound.rate(soundData.pitch);
         gongSound.amp(0.5);
         gongSound.play();
@@ -367,35 +411,47 @@ const sketch = (p) => {
 
   p.windowResized = () => {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
+    // keep background greyscale and update text color on resize
     resetSketch();
   };
 
+  // Element class (greyscale visuals)
   class Element {
     constructor(x, y) {
-      this.posX = x; this.posY = y;
+      this.posX = x;
+      this.posY = y;
       this.dirX = p.random(-1, 1) * maxSpeed;
       this.dirY = p.random(-1, 1) * maxSpeed;
       this.size = p.random(minElementSize, maxElementSize);
-      this.R = p.random(255); this.G = p.random(255);
+      // single greyscale channel for this element
+      this.gray = p.random(0, 255);
+      // ensure movement
       while (this.dirX === 0 && this.dirY === 0) {
         this.dirX = p.random(-1, 1) * maxSpeed;
         this.dirY = p.random(-1, 1) * maxSpeed;
       }
     }
+
     updateElement() {
-      this.posX += this.dirX; this.posY += this.dirY;
+      this.posX += this.dirX;
+      this.posY += this.dirY;
       this.checkEdges();
     }
+
     drawElement() {
       p.push();
       p.noFill();
-      p.stroke(this.R, this.G, 0, 105);
+      // stroke in greyscale with alpha
+      p.stroke(this.gray, this.gray, this.gray, 105);
       p.ellipse(this.posX, this.posY, this.size, this.size);
       p.noStroke();
-      p.fill(255, 35);
+      // small bright dot in front for contrast (use inverse of element gray)
+      const inv = 255 - Math.floor(this.gray);
+      p.fill(inv, inv, inv, 35);
       p.ellipse(this.posX, this.posY, 2, 2);
       p.pop();
     }
+
     checkEdges() {
       let edgeHit = false;
       if (this.posX - this.size / 2 < 0 || this.posX + this.size / 2 > p.width) {
@@ -410,17 +466,18 @@ const sketch = (p) => {
       }
       if (edgeHit) this.playGongSound();
     }
+
     playGongSound() {
       if (isMuted || !gongSound || !gongSound.isLoaded()) return;
       let pitch = p.map(this.size, minElementSize, maxElementSize, 0.5, 1.5);
       pitch = p.constrain(pitch, 0.5, 1.5);
       let decayTime = p.map(this.size, minElementSize, maxElementSize, 1, 5);
       decayTime = p.constrain(decayTime, 1, 5);
-      if (reverb) { try { reverb.set(decayTime, 0.35); } catch(e) { console.error("Failed to set reverb", e); } }
       soundQueue.push({ pitch, decayTime });
     }
   }
 
+  // mouse/touch handlers
   p.mousePressed = () => {
     const muteBtn = document.getElementById('muteButton');
     const resetBtn = document.getElementById('resetButton');
@@ -448,6 +505,7 @@ const sketch = (p) => {
       }
     }
   };
-};
+
+}; // end sketch
 
 new p5(sketch);
