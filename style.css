@@ -1,11 +1,11 @@
 html, body {
   height: 100%; /* Make body take full viewport height */
   overflow: hidden; /* Prevent the whole page body from scrolling */
-  margin: 0; /* Reset default body margin */
+  margin: 0em; /* Reset default body margin */
   padding: 0; /* Reset default body padding */
 }body {
-    margin: 10px;
-    padding: 10px;
+    margin: 1px;
+    padding: 1px;
     color: rgb(235, 235, 235);
     font-family: Georgia, serif; 
     font-size: 12px;
@@ -25,7 +25,7 @@ html, body {
     font-style: italic;
     font-size: smaller;
     color: rgb(235, 235, 235)
-    margin-bottom: 1em;
+    margin-bottom: .5em;
     line-height: 1.5;
   }
   .left-nav {
