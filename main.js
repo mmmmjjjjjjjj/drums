@@ -3,48 +3,29 @@ console.log("✅ main.js v7.1 loaded");
 // ──────────────────────────────────────────────────────────────
 // Routing (outside p5)
 // ──────────────────────────────────────────────────────────────
-function loadPage(pageName) {
+const pageCache = {};
+
+async function loadPage(pageName, updateURL = true) {
+
   const content = document.getElementById("content");
-  const pageToFetch = `${pageName}.html`;
-  const targetHash = `#${pageName}`;
 
-  console.log(`loadPage: Fetching ${pageToFetch}`);
-  if (!content) { console.error('#content not found in loadPage'); return; }
+  if (pageCache[pageName]) {
+    content.innerHTML = pageCache[pageName];
+  } else {
+    const response = await fetch(`${pageName}.html?${Date.now()}`);
 
-  content.style.transition = 'opacity 0.3s ease-out';
-  content.style.opacity = "0";
-  setTimeout(() => {
-    fetch(pageToFetch)
-      .then(response => {
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status} fetching ${pageToFetch}`);
-        return response.text();
-      })
-      .then(html => {
-        content.innerHTML = html;
+    const html = await response.text();
 
-        if (pageName === 'shows') {
-          setTimeout(() => {
-            console.log("Attempting to display shows after short delay (from loadPage)...");
-            displayShows();
-          }, 0);
-        } else if (pageName === 'gallery') {
-          setTimeout(() => initGallery(), 0);
-        }
+    pageCache[pageName] = html;
+    content.innerHTML = html;
+  }
 
-        if (window.location.hash !== targetHash) {
-          history.pushState(null, "", targetHash);
-        } else {
-          history.replaceState(null, "", targetHash);
-        }
-        setTimeout(() => { content.style.opacity = "1"; }, 50);
-      })
-      .catch(error => {
-        console.error("Error loading page:", error);
-        content.innerHTML = `<p>Error loading page: ${pageName}.</p>`;
-        content.style.opacity = "1";
-      });
-  }, 300);
+  // update browser URL hash
+  if (updateURL) {
+    window.location.hash = pageName;
+  }
 }
+
 
 // ──────────────────────────────────────────────────────────────
 // Slideshow (gallery page)
@@ -509,3 +490,38 @@ const sketch = (p) => {
 }; // end sketch
 
 new p5(sketch);
+
+const pagesToPreload = [
+  "bio",
+  "shows",
+  "music",
+  "video",
+  "gallery"
+];
+
+pagesToPreload.forEach(page => {
+  fetch(`${page}.html`)
+    .then(r => r.text())
+    .then(html => pageCache[page] = html);
+});
+
+window.addEventListener("hashchange", () => {
+
+  const page = window.location.hash.replace("#", "");
+
+  if (page) {
+    loadPage(page, false);
+  }
+
+});
+window.addEventListener("DOMContentLoaded", () => {
+
+  const page = window.location.hash.replace("#", "");
+
+  if (page) {
+    loadPage(page, false);
+  } else {
+    loadPage("bio", false);
+  }
+
+});
