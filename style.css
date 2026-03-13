@@ -22,14 +22,17 @@ html, body {
     margin-bottom: 1em;
   }
   p {
+    margin: 40px; 
+    padding: 10px;
     font-style: italic;
     font-size: smaller;
     color: rgb(235, 235, 235)
     margin-bottom: .5em;
+   
     line-height: 1.5;
   }
   .left-nav {
-    width: 120px;
+    width: 100px;
     padding: 20px;
     height: auto;
     position: fixed;
@@ -59,9 +62,9 @@ html, body {
     cursor: pointer;
   }
   .container {
-    padding: 10px;
+    padding: 5px;
     flex: 1;
-    margin-left: 100px;
+    margin-left: 5px;
     display: block grid;
     flex-direction: column;
     height: 100vh;
