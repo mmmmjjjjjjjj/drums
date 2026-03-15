@@ -1,4 +1,4 @@
-console.log("✅ main.js v8.0 loaded - Calendar Integrated");
+console.log("✅ main.js v8.1 loaded - Link Bug Fixed");
 
 // ──────────────────────────────────────────────────────────────
 // Routing & Page Loading
@@ -18,16 +18,14 @@ async function loadPage(pageName, updateURL = true) {
       content.innerHTML = html;
     }
 
-    // CRITICAL: If we just loaded the shows page, trigger the calendar fetch
-    if (pageName === 'shows') {
-      displayShows();
+    // Trigger gallery init if we just loaded the gallery page
+    if (pageName === 'gallery') {
+      setTimeout(() => initGallery(), 50);
     }
 
-    // Trigger gallery init if needed
-    if (pageName === 'gallery') {
-      if (typeof initGallery === 'function') {
-        initGallery();
-      }
+    // If we just loaded the shows page, trigger the calendar fetch
+    if (pageName === 'shows') {
+      displayShows();
     }
 
     if (updateURL) {
@@ -112,7 +110,8 @@ async function displayShows() {
 
 // Helper: Extract first URL from description
 function getFirstUrl(text) {
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  // FIXED: Stops at spaces, quotes, or HTML brackets to prevent swallowing tags
+  const urlRegex = /(https?:\/\/[^\s"<>]+)/g;
   const match = text.match(urlRegex);
   return match ? match[0] : null;
 }
@@ -120,8 +119,9 @@ function getFirstUrl(text) {
 // Helper: Strip HTML and Links from description text
 function renderDescNoLinks(text) {
   let clean = text.replace(/<[^>]*>?/gm, ''); // Remove HTML tags
-  clean = clean.replace(/(https?:\/\/[^\s]+)/g, ''); // Remove URLs
-  return htmlEscape(clean);
+  // Remove URLs matching the same pattern as above
+  clean = clean.replace(/(https?:\/\/[^\s"<>]+)/g, ''); 
+  return htmlEscape(clean).trim();
 }
 
 // Helper: Basic HTML escaping
@@ -131,10 +131,8 @@ function htmlEscape(str) {
   })[m]);
 }
 
-// expose router
 window.loadPage = loadPage;
 
-// initial load
 window.onload = function () {
   const hash = window.location.hash;
   let pageName;
@@ -148,40 +146,45 @@ window.onload = function () {
     pageName = hash.startsWith('#') ? hash.substring(1) : hash;
   }
 
-  const pageToFetch = `${pageName}.html`;
-  console.log(`Initial Hash Load: Hash=${hash}, PageName=${pageName}, Fetching=${pageToFetch}`);
-
-  fetch(pageToFetch)
-    .then(response => {
-      if (!response.ok) {
-        console.error(`Initial page "${pageToFetch}" not found, loading default.`);
-        pageName = defaultPageName;
-        return fetch(`${pageName}.html`).then(res => {
-          if (!res.ok) throw new Error('Default fetch failed too!');
-          history.replaceState(null, "", defaultHash);
-          return res.text();
-        });
-      }
-      return response.text();
-    })
-    .then(html => {
-      const content = document.getElementById("content");
-      if (content) {
-        content.innerHTML = html;
-        content.style.opacity = "1";
-
-        if (pageName === 'shows') {
-          displayShows();
-        } else if (pageName === 'gallery') {
-          if (typeof initGallery === 'function') setTimeout(() => initGallery(), 0);
-        }
-      }
-    })
-    .catch(error => { console.error("Error loading initial page:", error); });
+  loadPage(pageName, false);
 };
 
 // ──────────────────────────────────────────────────────────────
-// p5 sketch (instance mode) - GREYSCALE + inverse text color
+// Gallery / Slideshow Logic (Restored)
+// ──────────────────────────────────────────────────────────────
+let slideIndex = 1;
+
+function initGallery() {
+  slideIndex = 1;
+  showSlides(slideIndex);
+  window.plusSlides = plusSlides;
+  window.currentSlide = currentSlide;
+}
+
+function plusSlides(n) { showSlides(slideIndex += n); }
+function currentSlide(n) { showSlides(slideIndex = n); }
+
+function showSlides(n) {
+  const slides = document.querySelectorAll("#content .mySlides");
+  const dots = document.querySelectorAll("#content .demo");
+  const captionText = document.getElementById("caption");
+
+  if (!slides || slides.length === 0) return;
+  if (n > slides.length) { slideIndex = 1; }
+  if (n < 1) { slideIndex = slides.length; }
+
+  for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+  for (let i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active", ""); }
+
+  slides[slideIndex - 1].style.display = "block";
+  if (dots.length > 0) {
+    dots[slideIndex - 1].className += " active";
+    if (captionText) { captionText.innerHTML = dots[slideIndex - 1].alt; }
+  }
+}
+
+// ──────────────────────────────────────────────────────────────
+// p5 sketch
 // ──────────────────────────────────────────────────────────────
 const sketch = (p) => {
   let gongSound;
@@ -194,7 +197,6 @@ const sketch = (p) => {
   let soundQueue = [];
 
   p.preload = () => {
-    console.log("preload() called");
     gongSound = p.loadSound(
       "assets/GONG.mp3",
       () => { console.log("GONG.mp3 loaded"); },
@@ -204,28 +206,18 @@ const sketch = (p) => {
 
   function updateSiteTextColor(inverseGray) {
     const colorStr = `rgb(${inverseGray}, ${inverseGray}, ${inverseGray})`;
-    const selectors = [
-      '#content',
-      '#content p',
-      '#content h1', '#content h2', '#content h3',
-      '#content a', '#content li', '.left-nav a'
-    ];
+    const selectors = ['#content', '#content p', '#content h1', '#content h2', '#content h3', '#content a', '#content li', '.left-nav a'];
     selectors.forEach(sel => {
-      document.querySelectorAll(sel).forEach(el => {
-        el.style.color = colorStr;
-      });
+      document.querySelectorAll(sel).forEach(el => { el.style.color = colorStr; });
     });
   }
 
   const resetSketch = () => {
     const g = Math.floor(p.random(0, 255));
     p.background(g);
-    p.stroke(255);
-    p.fill(0);
+    p.stroke(255); p.fill(0);
     elements = [];
-    if (reverb) {
-      try { reverb.disconnect(); } catch(e) {}
-    }
+    if (reverb) { try { reverb.disconnect(); } catch(e) {} }
     try { reverb = new p5.Reverb(); } catch (e) { reverb = null; }
     soundQueue = [];
     const inverse = 255 - g;
@@ -236,10 +228,8 @@ const sketch = (p) => {
   p.setup = () => {
     p.createCanvas(p.windowWidth, p.windowHeight);
     resetSketch();
-
     const muteButton = p.select('#muteButton');
     const resetButton = p.select('#resetButton');
-
     if (muteButton) {
       muteButton.mousePressed(() => {
         isMuted = !isMuted;
@@ -250,12 +240,7 @@ const sketch = (p) => {
         }
       });
     }
-
-    if (resetButton) {
-      resetButton.mousePressed(() => {
-        resetSketch();
-      });
-    }
+    if (resetButton) { resetButton.mousePressed(() => { resetSketch(); }); }
   };
 
   p.draw = () => {
@@ -265,14 +250,11 @@ const sketch = (p) => {
         elements[i].drawElement();
       }
     }
-
     if (soundQueue.length > 0 && gongSound && gongSound.isLoaded()) {
       if (!gongSound.isPlaying()) {
         const soundData = soundQueue.shift();
         if (reverb) {
-          try {
-            reverb.process(gongSound, soundData.decayTime, 0.35);
-          } catch (e) { console.error("Reverb failed", e); }
+          try { reverb.process(gongSound, soundData.decayTime, 0.35); } catch (e) {}
         }
         gongSound.rate(soundData.pitch);
         gongSound.amp(0.5);
@@ -288,8 +270,7 @@ const sketch = (p) => {
 
   class Element {
     constructor(x, y) {
-      this.posX = x;
-      this.posY = y;
+      this.posX = x; this.posY = y;
       this.dirX = p.random(-1, 1) * maxSpeed;
       this.dirY = p.random(-1, 1) * maxSpeed;
       this.size = p.random(minElementSize, maxElementSize);
@@ -299,16 +280,12 @@ const sketch = (p) => {
         this.dirY = p.random(-1, 1) * maxSpeed;
       }
     }
-
     updateElement() {
-      this.posX += this.dirX;
-      this.posY += this.dirY;
+      this.posX += this.dirX; this.posY += this.dirY;
       this.checkEdges();
     }
-
     drawElement() {
-      p.push();
-      p.noFill();
+      p.push(); p.noFill();
       p.stroke(this.gray, this.gray, this.gray, 105);
       p.ellipse(this.posX, this.posY, this.size, this.size);
       p.noStroke();
@@ -317,7 +294,6 @@ const sketch = (p) => {
       p.ellipse(this.posX, this.posY, 2, 2);
       p.pop();
     }
-
     checkEdges() {
       let edgeHit = false;
       if (this.posX - this.size / 2 < 0 || this.posX + this.size / 2 > p.width) {
@@ -332,7 +308,6 @@ const sketch = (p) => {
       }
       if (edgeHit) this.playGongSound();
     }
-
     playGongSound() {
       if (isMuted || !gongSound || !gongSound.isLoaded()) return;
       let pitch = p.map(this.size, minElementSize, maxElementSize, 0.5, 1.5);
@@ -349,7 +324,6 @@ const sketch = (p) => {
     let isOverButton = false;
     if (muteBtn && muteBtn.contains(event.target)) isOverButton = true;
     if (resetBtn && resetBtn.contains(event.target)) isOverButton = true;
-
     if (!isOverButton && p.mouseX >= 0 && p.mouseX <= p.width && p.mouseY >= 0 && p.mouseY <= p.height) {
       elements.push(new Element(p.mouseX, p.mouseY));
     }
@@ -361,37 +335,23 @@ const sketch = (p) => {
     let isOverButton = false;
     if (muteBtn && muteBtn.contains(event.target)) isOverButton = true;
     if (resetBtn && resetBtn.contains(event.target)) isOverButton = true;
-
     if (!isOverButton && p.touches.length > 0) {
-      const touchX = p.touches[0].x;
-      const touchY = p.touches[0].y;
+      const touchX = p.touches[0].x; const touchY = p.touches[0].y;
       if (touchX >= 0 && touchX <= p.width && touchY >= 0 && touchY <= p.height) {
         elements.push(new Element(touchX, touchY));
       }
     }
   };
-
 };
 
 new p5(sketch);
 
 const pagesToPreload = ["bio", "shows", "music", "video", "gallery"];
 pagesToPreload.forEach(page => {
-  fetch(`${page}.html`)
-    .then(r => r.text())
-    .then(html => pageCache[page] = html);
+  fetch(`${page}.html`).then(r => r.text()).then(html => pageCache[page] = html);
 });
 
 window.addEventListener("hashchange", () => {
   const page = window.location.hash.replace("#", "");
   if (page) loadPage(page, false);
-});
-
-window.addEventListener("DOMContentLoaded", () => {
-  const page = window.location.hash.replace("#", "");
-  if (page) {
-    loadPage(page, false);
-  } else {
-    loadPage("bio", false);
-  }
 });

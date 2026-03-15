@@ -62,7 +62,7 @@ html, body {
     cursor: pointer;
   }
   .container {
-    padding: 5px;
+    padding: 100px;
     flex: 1;
     margin-left: 5px;
     display: block grid;
@@ -144,8 +144,8 @@ html, body {
 /* --- Example Shows List Styling --- */
 #shows-list ul {
   list-style: none; /* Remove default bullets */
-  padding: 0;
-  margin-left: 100px;
+  padding: 1em;
+  margin-left: 1px;
 }
 
 .show-item {
@@ -389,7 +389,7 @@ html, body {
 }
 /* --- Slideshow Styling --- */
 .slideshow-container {
-  max-width: 800px; /* Adjust max width as desired */
+  max-width: 500px; /* Adjust max width as desired */
   position: relative;
   margin: auto;
 }
