@@ -6,27 +6,26 @@
   <title>Max Jaffe</title>
   <script src="/js/p5.js"></script>
   <script src="/js/p5.sound.min.js"></script>
-  <script type="module" crossorigin src="/assets/index-C4_ThGrH.js"></script>
+  <script type="module" crossorigin src="/assets/index-DU0TWX6x.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-CAeFXl_d.css">
 </head>
 <body>
 
   <div class="left-nav">
-    <h1><a href="#home" onclick="loadPage('home'); return false;">MAX JAFFE</a></h1>
-<nav>
-  <a href="#about" onclick="loadPage('bio'); return false;">ABOUT</a>
-  <a href="#shows" onclick="loadPage('shows'); return false;">SHOWS</a>
-  <a href="#music" onclick="loadPage('music'); return false;">MUSIC</a>
-  <a href="#video" onclick="loadPage('video'); return false;">VIDEOS</a>
-  <a href="#gallery" onclick="loadPage('gallery'); return false;">GALLERY</a>
-  
-  
-  <!-- <a href="https://splice.com/sounds/rubicon/sensory-percussion-moods" target="_blank">SAMPLE</a> -->
-  <!-- <a href="#press" onclick="loadPage('press'); return false;">PRESS</a> -->
-  <a href="mailto:max.jhin.jaffe@gmail.com">CONTACT</a>
-<!-- <br><br>
-  <img class="profile-photo" src="assets/img/MJ_by_Yousef_Hilmy.jpg" alt="Max Jaffe"> -->
-</nav>
+    <h1><a href="/" onclick="event.preventDefault(); loadPage('home');">MAX JAFFE</a></h1>
+    <nav>
+      <a href="/about" onclick="event.preventDefault(); loadPage('about');">ABOUT</a>
+      <a href="/shows" onclick="event.preventDefault(); loadPage('shows');">SHOWS</a>
+      <a href="/music" onclick="event.preventDefault(); loadPage('music');">MUSIC</a>
+      <a href="/video" onclick="event.preventDefault(); loadPage('video');">VIDEOS</a>
+      <a href="/gallery" onclick="event.preventDefault(); loadPage('gallery');">GALLERY</a>
+      
+      <!-- <a href="https://splice.com/sounds/rubicon/sensory-percussion-moods" target="_blank">SAMPLE</a> -->
+      <!-- <a href="/press" onclick="event.preventDefault(); loadPage('press');">PRESS</a> -->
+      <a href="mailto:max.jhin.jaffe@gmail.com">CONTACT</a>
+      <!-- <br><br>
+      <img class="profile-photo" src="assets/img/MJ_by_Yousef_Hilmy.jpg" alt="Max Jaffe"> -->
+    </nav>
   </div>
   <div class="buttons-container">
     <button id="muteButton">MUTE</button>
@@ -34,7 +33,7 @@
   </div>
   <div class="container">
     <div class="scroll" id="content">
-      </div>
+    </div>
   </div>
   <canvas id="defaultCanvas0"></canvas>
 </body>
